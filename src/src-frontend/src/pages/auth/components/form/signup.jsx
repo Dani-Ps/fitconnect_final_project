@@ -172,8 +172,8 @@ const SignupForm = () => {
                     login({ token: result.token, user: result.userDTO });
 
                     window.sessionStorage.setItem("token", result.token);
-                    window.sessionStorage.setItem("userRol", result.userDTO.roles);
-                    window.sessionStorage.setItem("isLogged", true);
+                    window.sessionStorage.setItem("Role", result.userDTO.roles);
+                    window.sessionStorage.setItem("isAuht", true);
 
                     window.location.href = "/home";
 
