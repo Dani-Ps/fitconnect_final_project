@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 
 import { useAuthContext } from '../../../contexts/AuthProvider';
-
+import { ThemeContext } from '../../../contexts/ThemeProvider';
 import { deleteUser } from '../../../service/adminService';
 import { fetchAllUsers } from '../../../service/userService';
-
-import EditUserModal from './components/modal/editModal';
-import DeleteUserModal from './components/modal/deleteUserModal';
+import { EditUserModal } from './components/modal/editModal';
+import { DeleteUserModal } from './components/modal/deleteModal';
 
 import './style.scss';
 const Roles = {
@@ -16,6 +15,7 @@ const Roles = {
 };
 
 const UserTable = () => {
+    const { isDark, theme } = useContext(ThemeContext);
     const [users, setUsers] = useState([]);
     const [filteredUsers, setFilteredUsers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -27,7 +27,7 @@ const UserTable = () => {
     const [totalPages, setTotalPages] = useState(0);
 
     const { userData } = useAuthContext();
-    const token = userData.token;
+    const token = userData?.token;
     const usersPerPage = 10;
 
     const fetchUsers = async () => {
@@ -133,10 +133,10 @@ const UserTable = () => {
                     <option value={Roles.ROLE_ADMIN}>Admin</option>
                 </select>
             </div>
-            <table>
+            <table style={{ background: theme.grayA4 }}>
                 <thead>
                     <tr>
-                        <th>Name</th>
+                        <th style={{ background: theme.tealA12 }}>Name</th>
                         <th>Age</th>
                         <th>Email</th>
                         <th id='more-link'>Details</th>
