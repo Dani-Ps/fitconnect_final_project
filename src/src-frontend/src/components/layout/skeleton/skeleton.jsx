@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { ThemeContext } from '../../../contexts/ThemeProvider';
-import { useLocation } from 'react-router-dom';
 
 const Skeleton = ({ mainContent, footerContent, currentPath }) => {
     const { theme } = useContext(ThemeContext);

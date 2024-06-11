@@ -9,7 +9,6 @@ import Skeleton from '../../components/layout/skeleton/skeleton.jsx';
 import { Header } from '../../components/layout/header/header.jsx';
 import { FooterBarComponent, SidebarComponent } from '../../components/layout/navbar/navbar.jsx';
 import ActivityPostComponent from '../../components/common/activity/activityPost.jsx';
-import FooterComponent from '../../components/layout/footer/footer.jsx';
 import { ToggleButton } from './components/buttons/buttons.jsx';
 import AddActivityForm from '../../components/common/addActivity/addActivityCard.jsx';
 import { LogoiconDark } from '../../assest/icon/logo-dark';
@@ -22,7 +21,7 @@ const DashboardPage = () => {
     // CONTEXTS
     const { isDark } = useContext(ThemeContext);
     const { screenWidth } = useScreenContext();
-    const { logout, userData } = useAuthContext();
+    const { logout } = useAuthContext();
     const { isModalOpen } = useModalContext();
     const isAddModalOpen = isModalOpen('addModal');
 

@@ -21,7 +21,7 @@ const HomePage = () => {
     // CONTEXTS
     const { isDark } = useContext(ThemeContext);
     const { screenWidth } = useScreenContext();
-    const { logout, userData } = useAuthContext();
+    const { logout } = useAuthContext();
     const { isModalOpen } = useModalContext();
     const isAddModalOpen = isModalOpen('addModal');
 

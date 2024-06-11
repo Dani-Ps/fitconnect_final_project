@@ -21,7 +21,7 @@ function App() {
   const isAuht = window.sessionStorage.getItem("isAuht");
   const userRole = window.sessionStorage.getItem("Role");
   const isAdmin = () => {
-    if (userRole && userRole == ('ROLE_ADMIN')) {
+    if (userRole && userRole === ('ROLE_ADMIN')) {
       return true;
     } else {
       return false;

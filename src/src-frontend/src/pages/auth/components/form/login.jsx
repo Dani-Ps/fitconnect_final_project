@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 //  CONTEXTS
 import { useAuthContext } from '../../../../contexts/AuthProvider';
 import { ThemeContext } from '../../../../contexts/ThemeProvider';
@@ -9,7 +9,6 @@ import { signinService } from '../../../../service/authService';
 import './style.scss';
 
 const LoginForm = () => {
-    const navigate = useNavigate();
     const { login } = useAuthContext();
     const { theme } = useContext(ThemeContext);
 
