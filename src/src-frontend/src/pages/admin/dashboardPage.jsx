@@ -66,11 +66,13 @@ const DashboardPage = () => {
                                 </>}
                         />
                         <div className="main-content">
-                            <div className='title' >
-                                <h2 style={{ color: theme.gray12 }}>Dashboard</h2>
-                            </div>
-                            <div className='barUser-chart'>
-                                <UserAgeChart />
+                            <div className='dashboard-container'>
+                                <div className='title' >
+                                    <h2 style={{ color: theme.gray12 }}>Dashboard</h2>
+                                </div>
+                                <div className='barUser-chart'>
+                                    <UserAgeChart />
+                                </div>
                             </div>
                         </div>
                     </>
@@ -86,11 +88,13 @@ const DashboardPage = () => {
                 <>
                     <SidebarComponent />
                     <div className="main-content">
-                        <div className='title' >
-                            <h1 style={{ color: theme.gray12 }}>Dashboard</h1>
-                        </div>
-                        <div className='barUser-chart'>
-                            <UserAgeChart />
+                        <div className='dashboard-container'>
+                            <div className='title' >
+                                <h1 style={{ color: theme.gray12 }}>Dashboard</h1>
+                            </div>
+                            <div className='barUser-chart'>
+                                <UserAgeChart />
+                            </div>
                         </div>
                     </div>
                 </>
