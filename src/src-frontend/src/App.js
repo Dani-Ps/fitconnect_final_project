@@ -47,13 +47,20 @@ function App() {
             <>
               <Route path="/" element={<Navigate to="/dashboard" />} />
               <Route path="/dashboard" element={< DashboardPage />} />
-              <Route path="/pruebas" element={< UserTable />} />
+              <Route path="/manager/users" element={< UserTable />} />
+              <Route path="/manager/activities" element={< UserTable />} />
+              <Route path="/manager/notifications" element={< UserTable />} />
+              <Route path="/userDetails/:userName" element={<UserTable />} />
+              <Route path="/admin/:userName" element={<UserTable />} />
+
+
 
             </>
           ) : (
             <>
               <Route path="/" element={<HomePage />} />
               <Route path="/home" element={<Navigate to="/" />} />
+              <Route path="/:userName" element={<HomePage />} />
             </>
           )}
         </Route>
