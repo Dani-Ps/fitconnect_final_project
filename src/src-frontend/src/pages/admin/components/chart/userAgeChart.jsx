@@ -48,6 +48,7 @@ const UserAgeChart = () => {
                     text: 'Users'
                 },
                 beginAtZero: true,
+                max: 150,
                 ticks: {
                     callback: function (value) {
                         if (Number.isInteger(value)) {
@@ -72,28 +73,35 @@ const UserAgeChart = () => {
     const ages = users.map(user => user.age);
     const allAges = Array.from({ length: 100 - 18 + 1 }, (_, i) => i + 18);
     const ageCount = allAges.map(age => ages.filter(a => a === age).length);
+    const maxUsers = 100;
 
-    const getColor = (count) => {
-        if (count > 15) return 'rgba(255, 99, 132, 0.5)';  // Rojo para >15
-        if (count > 10) return 'rgba(255, 159, 64, 0.5)';  // Naranja para 11-15
-        if (count > 5) return 'rgba(255, 205, 86, 0.5)';   // Amarillo para 6-10
-        return 'rgba(75, 192, 192, 0.5)';                  // Verde para 0-5
+    const getColor = (age) => {
+        if (age >= 18 && age <= 30) return 'rgba(0, 191, 255, 0.5)';  // Azul claro para adultos jóvenes (18-30)
+        if (age > 30 && age <= 55) return 'rgba(255, 215, 0, 0.5)';   // Dorado para adultos mayores (31-55)
+        if (age > 55) return 'rgba(255, 0, 0, 0.5)';  // Rojo claro para ancianos (56-100)
+        return 'rgba(169, 169, 169, 0.5)';  // Gris para edades que no estén en ninguno de los grupos definidos
     };
 
-    const getBorderColor = (count) => {
-        if (count > 15) return 'rgba(255, 99, 132, 1)';  // Rojo para >15
-        if (count > 10) return 'rgba(255, 159, 64, 1)';  // Naranja para 11-15
-        if (count > 5) return 'rgba(255, 205, 86, 1)';   // Amarillo para 6-10
-        return 'rgba(75, 192, 192, 1)';                  // Verde para 0-5
+    const getBorderColor = (age) => {
+        if (age >= 18 && age <= 30) return 'rgba(0, 191, 255, 1)';  // Azul claro para adultos jóvenes (18-30)
+        if (age > 30 && age <= 55) return 'rgba(255, 215, 0, 1)';   // Dorado para adultos mayores (31-55)
+        if (age > 55) return 'rgba(255, 0, 0, 1)';  // Rojo claro para ancianos (56-100)
+        return 'rgba(169, 169, 169, 1)';  // Gris para edades que no estén en ninguno de los grupos definidos
     };
+    const normalizeData = (data, maxUsers) => {
+        const maxCount = Math.max(...data);
+        const factor = maxUsers / maxCount;
+        return data.map(count => Math.round(count * factor));
+    };
+    const normalizedAgeCount = normalizeData(ageCount, maxUsers);
 
     const barChartData = {
         labels: allAges,
         datasets: [{
             label: 'Users by age',
-            data: ageCount,
-            backgroundColor: ageCount.map(count => getColor(count)),
-            borderColor: ageCount.map(count => getBorderColor(count)),
+            data: normalizedAgeCount,
+            backgroundColor: normalizedAgeCount.map(count => getColor(count)),
+            borderColor: normalizedAgeCount.map(count => getBorderColor(count)),
             borderWidth: 1
         }]
     };
