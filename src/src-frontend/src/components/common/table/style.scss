@@ -28,3 +28,26 @@ button {
         cursor: not-allowed;
     }
 }
+
+.pagination {
+    margin-top: 10px;
+}
+
+.pagination button {
+    margin-right: 5px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    background-color: #b1b1b1d9;
+    cursor: pointer;
+    color: black;
+}
+
+.pagination button.active {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+a {
+    text-decoration: none;
+}
