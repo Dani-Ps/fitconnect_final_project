@@ -1,6 +1,5 @@
 const API_USER_PATH = 'http://localhost:8080/api/v1/user';
 
-// Función para obtener todos los usuarios
 const fetchAllUsers = async (token) => {
     try {
         const response = await fetch(`${API_USER_PATH}`, {
@@ -17,7 +16,7 @@ const fetchAllUsers = async (token) => {
         }
 
         const users = await response.json();
-        console.log('Users:', users);
+        return Array.isArray(users) ? users : [];
     } catch (error) {
         console.error('Error getting users:', error.message);
     }

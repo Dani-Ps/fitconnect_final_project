@@ -90,14 +90,12 @@ public class UserServiceImpl implements UserServiceI {
 
 	@Override
 	public void update(Long id, UserDTO user) {
-
 		if (!userRepository.findById(id).isPresent()) {
 			throw new UserNotFoundException(Constants.USER_NOT_FOUND, HttpStatus.NOT_FOUND);
 		}
+		User existingUser = userMapper.userDTOtoUser(user);
 
-		deleteById(id);
-
-		userRepository.save(userMapper.userDTOtoUser(user));
+		userRepository.save(existingUser);
 
 	}
 

@@ -5,8 +5,11 @@ import { useScreenContext } from '../../contexts/ScreenProvider.js';
 import { useAuthContext } from '../../contexts/AuthProvider.js';
 import { useModalContext } from '../../contexts/ModalProvider.js';
 
+import { fetchAllUsers } from '../../service/userService.js';
+
 import Skeleton from '../../components/layout/skeleton/skeleton.jsx';
 import { Header } from '../../components/layout/header/header.jsx';
+import UserAgeChart from './components/chart/userAgeChart.jsx';
 import { FooterBarComponent, SidebarComponent } from '../../components/layout/navbar/navbar.jsx';
 import ActivityPostComponent from '../../components/common/activity/activityPost.jsx';
 import { ToggleButton } from './components/buttons/buttons.jsx';
@@ -16,14 +19,14 @@ import { LogoiconClear } from '../../assest/icon/logo-clear';
 import { LogoutClear } from '../../assest/icon/sidebarIcons-clear.jsx';
 import { LogoutDark } from '../../assest/icon/sidebarIcons-dark.jsx';
 
+import "./style.scss"
 
 const DashboardPage = () => {
     // CONTEXTS
-    const { isDark } = useContext(ThemeContext);
+    const { isDark, theme } = useContext(ThemeContext);
     const { screenWidth } = useScreenContext();
-    const { logout } = useAuthContext();
+    const { logout, userData, update } = useAuthContext();
     const { isModalOpen } = useModalContext();
-    const isAddModalOpen = isModalOpen('addModal');
 
     //#region SCREEN STATE
     const [isScreenSmall, setIsScreenSmall] = useState(false);
@@ -49,7 +52,6 @@ const DashboardPage = () => {
     const headerLeftContent = isDark ? <LogoiconDark {...svgLogoIconProps} /> : <LogoiconClear  {...svgLogoIconProps} />;
 
 
-
     if (isScreenSmall) {
         return (
             <Skeleton
@@ -64,8 +66,12 @@ const DashboardPage = () => {
                                 </>}
                         />
                         <div className="main-content">
-                            <ActivityPostComponent />
-                            {isAddModalOpen && <AddActivityForm />}
+                            <div className='title' >
+                                <h2 style={{ color: theme.gray12 }}>Dashboard</h2>
+                            </div>
+                            <div className='barUser-chart'>
+                                <UserAgeChart />
+                            </div>
                         </div>
                     </>
                 }
@@ -80,9 +86,12 @@ const DashboardPage = () => {
                 <>
                     <SidebarComponent />
                     <div className="main-content">
-                        <ActivityPostComponent />
-                        {isAddModalOpen && <AddActivityForm />}
-
+                        <div className='title' >
+                            <h1 style={{ color: theme.gray12 }}>Dashboard</h1>
+                        </div>
+                        <div className='barUser-chart'>
+                            <UserAgeChart />
+                        </div>
                     </div>
                 </>
             }

@@ -1,5 +1,8 @@
 package com.fitconnet.config;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -58,13 +61,52 @@ public class DataInitializer implements CommandLineRunner {
 			both.getRoles().add(Role.ROLE_USER);
 			userRepository.saveAndFlush(both);
 
-			for (int i = 0; i < 10; i++) {
+			List<User> users = new ArrayList<>();
+
+			// Crear 20 usuarios con edades aleatorias entre 18 y 80
+			for (int i = 0; i < 20; i++) {
 				User user = new User();
 				user.setName(faker.name().firstName());
 				user.setEmail(faker.internet().emailAddress());
-				user.setAge(faker.number().numberBetween(18, 80));
+				user.setAge(faker.number().numberBetween(60, 80));
 				user.setPassword(passwordEncoder.encode(faker.internet().password()));
 				user.getRoles().add(Role.ROLE_USER);
+				users.add(user);
+			}
+
+			// Crear 20 usuarios con edad 45
+			for (int i = 0; i < 20; i++) {
+				User user = new User();
+				user.setName(faker.name().firstName());
+				user.setEmail(faker.internet().emailAddress());
+				user.setAge(faker.number().numberBetween(18, 24));
+				user.setPassword(passwordEncoder.encode(faker.internet().password()));
+				user.getRoles().add(Role.ROLE_USER);
+				users.add(user);
+			}
+
+			// Crear 20 usuarios con edad 29
+			for (int i = 0; i < 20; i++) {
+				User user = new User();
+				user.setName(faker.name().firstName());
+				user.setEmail(faker.internet().emailAddress());
+				user.setAge(faker.number().numberBetween(35, 50));
+				user.setPassword(passwordEncoder.encode(faker.internet().password()));
+				user.getRoles().add(Role.ROLE_USER);
+				users.add(user);
+			}
+			for (int i = 0; i < 30; i++) {
+				User user = new User();
+				user.setName(faker.name().firstName());
+				user.setEmail(faker.internet().emailAddress());
+				user.setAge(faker.number().numberBetween(25, 90));
+				user.setPassword(passwordEncoder.encode(faker.internet().password()));
+				user.getRoles().add(Role.ROLE_USER);
+				users.add(user);
+			}
+
+			// Guardar usuarios en el repositorio
+			for (User user : users) {
 				userRepository.save(user);
 			}
 

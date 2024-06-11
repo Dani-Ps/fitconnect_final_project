@@ -16,6 +16,9 @@ import { ToggleButton } from './components/buttons/buttons';
 
 import { CreateClear, HomeClear, LogoutClear, NotificationClear, ProfileClear, SearchClear } from '../../../assest/icon/sidebarIcons-clear';
 import { CreateDark, HomeDark, LogoutDark, NotificationDark, ProfileDark, SearchDark } from '../../../assest/icon/sidebarIcons-dark';
+import { DasboardIconClear, NotificationIconClear, PostIconClear, UserIconClear } from '../../../assest/icon/adminSidebarIcons-clear';
+import { DasboardIconDark, NotificationIconDark, PostIconDark, UserIconDark } from '../../../assest/icon/adminSidebarIcons-dark';
+
 
 import './style.scss';
 
@@ -30,6 +33,15 @@ const SidebarComponent = ({ }) => {
     const navigate = useNavigate();
 
     const profileImage = userData?.user?.image;
+
+    const userRole = window.sessionStorage.getItem("Role");
+    const isAdmin = () => {
+        if (userRole && userRole === ('ROLE_ADMIN')) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     const { screenWidth } = useScreenContext();
     const [isScreenSmall, setIsScreenSmall] = useState();
@@ -51,26 +63,83 @@ const SidebarComponent = ({ }) => {
         className: "",
         viewBox: "138 0 260.493 60",
     };
-    const darkIcons = {
+    const darkUserIcons = {
         Home: HomeDark,
         Search: SearchDark,
         Create: CreateDark,
         Notification: NotificationDark,
     };
 
-    const clearIcons = {
+    const clearUserIcons = {
         Home: HomeClear,
         Search: SearchClear,
         Create: CreateClear,
         Notification: NotificationClear,
     };
+    const darkAdminIcons = {
+        Dashboard: DasboardIconDark,
+        Search: SearchDark,
+        Users: UserIconDark,
+        Activities: PostIconDark,
+        Notifications: NotificationIconDark,
+    };
 
-    const icons = isDark ? darkIcons : clearIcons;
+    const clearAdminIcons = {
+        Dashboard: DasboardIconClear,
+        Search: SearchClear,
+        Users: UserIconClear,
+        Activities: PostIconClear,
+        Notifications: NotificationIconClear,
+    };
+
+    const userIcons = {
+        Home: isDark ? HomeDark : HomeClear,
+        Search: isDark ? SearchDark : SearchClear,
+        Create: isDark ? CreateDark : CreateClear,
+        Notification: isDark ? NotificationDark : NotificationClear,
+    };
+
+    const adminIcons = {
+        Dashboard: isDark ? DasboardIconDark : DasboardIconClear,
+        Search: isDark ? SearchDark : SearchClear,
+        Users: isDark ? UserIconDark : UserIconClear,
+        Activities: isDark ? PostIconDark : PostIconClear,
+        AdNotifications: isDark ? NotificationIconDark : NotificationIconClear,
+    };
+
+    const icons = isAdmin() ? adminIcons : userIcons;
     //#endregion
-
+    const handleLogoutClick = async () => {
+        try {
+            await logout();
+            window.location.href = '/login';
+        } catch (error) {
+            console.error('Error during logout:', error);
+        }
+    };
     const handleIconClick = (name) => {
         switch (name) {
-            case 'home':
+            case 'Dashboard':
+                if (location.pathname !== '/') {
+                    navigate('/dashboard');
+                }
+                break;
+            case 'Users':
+                if (location.pathname !== '/manager/user') {
+                    navigate('/manager/users');
+                }
+                break;
+            case 'Activities':
+                if (location.pathname !== '/manager/activities') {
+                    navigate('/manager/activities');
+                }
+                break;
+            case 'AdNotifications':
+                if (location.pathname !== '/manager/notifications') {
+                    navigate('/manager/notifications');
+                }
+                break;
+            case 'Home':
                 location.pathname = '/' ? window.location.reload : navigate('/');
                 break;
             case 'Search':
@@ -81,11 +150,11 @@ const SidebarComponent = ({ }) => {
                 handleOpenAddModal();
                 break;
             case 'Profile':
-                window.location.href = '/perfil';
+                const profileURL = `/admin/${userData.user.name}`;
+                navigate(profileURL)
                 break;
             case 'Logout':
-                logout();
-                window.location.href = '/';
+                handleLogoutClick();
                 break;
             default:
                 break;
@@ -110,7 +179,7 @@ const SidebarComponent = ({ }) => {
                             </div>
                         );
                     })}
-                    <div className='icon-btn' style={{ borderColor: theme.gray8, backgroundColor: theme.grayA2 }}><ProfilePictureComponent source={profileImage} size={35} /></div>
+                    <div className='icon-btn' style={{ borderColor: theme.gray8, backgroundColor: theme.grayA2 }} onClick={() => handleIconClick('Profile')}><ProfilePictureComponent source={profileImage} size={35} /></div>
                 </div>
                 <div className='logout-section'>
                     <div className='toggle-section'>
@@ -143,7 +212,7 @@ const SidebarComponent = ({ }) => {
                     );
                 })}
                 <div className='icon-wrapper' style={{ borderColor: theme.gray8, backgroundColor: theme.grayA2 }}>
-                    <div className='icon-btn'><ProfilePictureComponent source={profileImage} size={35} /></div>
+                    <div className='icon-btn' onClick={() => handleIconClick('Profile')}><ProfilePictureComponent source={profileImage} size={35} /></div>
                     <div className='icon-text' style={{ color: theme.gray11 }}>{userData?.user?.name}</div>
                 </div>
 
@@ -167,26 +236,82 @@ const FooterBarComponent = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const profileImage = userData?.user?.image;
-
-    const darkIcons = {
+    const userRole = window.sessionStorage.getItem("Role");
+    const isAdmin = () => {
+        if (userRole && userRole === ('ROLE_ADMIN')) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    const darkUserIcons = {
         Home: HomeDark,
         Search: SearchDark,
         Create: CreateDark,
         Notification: NotificationDark,
     };
 
-    const clearIcons = {
+    const clearUserIcons = {
         Home: HomeClear,
         Search: SearchClear,
         Create: CreateClear,
         Notification: NotificationClear,
     };
+    const darkAdminIcons = {
+        Dashboard: DasboardIconDark,
+        Search: SearchDark,
+        Users: UserIconDark,
+        Activities: PostIconDark,
+        Notifications: NotificationIconDark,
+    };
 
-    const icons = isDark ? darkIcons : clearIcons;
+    const clearAdminIcons = {
+        Dashboard: DasboardIconClear,
+        Search: SearchClear,
+        Users: UserIconClear,
+        Activities: PostIconClear,
+        Notifications: NotificationIconClear,
+    };
 
+    const userIcons = {
+        Home: isDark ? HomeDark : HomeClear,
+        Search: isDark ? SearchDark : SearchClear,
+        Create: isDark ? CreateDark : CreateClear,
+        Notification: isDark ? NotificationDark : NotificationClear,
+    };
+
+    const adminIcons = {
+        Dashboard: isDark ? DasboardIconDark : DasboardIconClear,
+        Search: isDark ? SearchDark : SearchClear,
+        Users: isDark ? UserIconDark : UserIconClear,
+        Activities: isDark ? PostIconDark : PostIconClear,
+        Notifications: isDark ? NotificationIconDark : NotificationIconClear,
+    };
+
+    const icons = isAdmin() ? adminIcons : userIcons;
     const handleIconClick = (name) => {
         switch (name) {
-            case 'home':
+            case 'Dashboard':
+                if (location.pathname !== '/') {
+                    navigate('/dashboard');
+                }
+                break;
+            case 'Users':
+                if (location.pathname !== '/manager/user') {
+                    navigate('/manager/users');
+                }
+                break;
+            case 'Activities':
+                if (location.pathname !== '/manager/activities') {
+                    navigate('/manager/activities');
+                }
+                break;
+            case 'Notifications':
+                if (location.pathname !== '/manager/notifications') {
+                    navigate('/manager/notifications');
+                }
+                break;
+            case 'Home':
                 location.pathname = '/' ? window.location.reload : navigate('/');
                 break;
             case 'Search':
@@ -197,12 +322,14 @@ const FooterBarComponent = () => {
                 handleOpenAddModal();
                 break;
             case 'Profile':
-                window.location.href = '/perfil';
+                const profileURL = `/admin/${userData.user.name}`;
+                navigate(profileURL)
                 break;
             default:
                 break;
         }
     };
+
 
     return (
         <div className="footerbar-container" style={{ background: theme.colorBackground, borderColor: theme.gray8 }}>
@@ -217,7 +344,7 @@ const FooterBarComponent = () => {
                         </div>
                     );
                 })}
-                <div className='icon-btn'><ProfilePictureComponent source={profileImage} size={30} /></div>
+                <div className='icon-btn' onClick={() => handleIconClick('Profile')}><ProfilePictureComponent source={profileImage} size={30} /></div>
             </div>
         </div>
     );
