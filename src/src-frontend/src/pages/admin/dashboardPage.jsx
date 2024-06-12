@@ -8,6 +8,7 @@ import { useModalContext } from '../../contexts/ModalProvider.js';
 import Skeleton from '../../components/layout/skeleton/skeleton.jsx';
 import { Header } from '../../components/layout/header/header.jsx';
 import UserAgeChart from './components/chart/userAgeChart.jsx';
+import ActivityLineChart from './components/chart/activityLineChart.jsx';
 import { FooterBarComponent, SidebarComponent } from '../../components/layout/navbar/navbar.jsx';
 import { ToggleButton } from './components/buttons/buttons.jsx';
 import { LogoiconDark } from '../../assest/icon/logo-dark';
@@ -68,8 +69,11 @@ const DashboardPage = () => {
                                 <div className='title' >
                                     <h2 style={{ color: theme.gray12 }}>Dashboard</h2>
                                 </div>
-                                <div className='barUser-chart'>
+                                <div className='chart-container'>
                                     <UserAgeChart />
+                                </div>
+                                <div className='chart-container'>
+                                    <ActivityLineChart />
                                 </div>
                                 {isSearchModalOpen && <SearchModal />}
 
@@ -92,11 +96,14 @@ const DashboardPage = () => {
                             <div className='title' >
                                 <h1 style={{ color: theme.gray12 }}>Dashboard</h1>
                             </div>
-                            <div className='barUser-chart'>
+                            <div className='chart-container'>
                                 <UserAgeChart />
-                                {isSearchModalOpen && <SearchModal />}
 
                             </div>
+                            <div className='chart-container'>
+                                <ActivityLineChart />
+                            </div>
+                            {isSearchModalOpen && <SearchModal />}
 
                         </div>
                     </div>
