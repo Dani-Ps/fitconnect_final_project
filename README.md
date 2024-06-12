@@ -679,7 +679,165 @@ Servicios para manejar la lógica de negocio y las interacciones con APIs.
 - `setupTests.js`: Configuración para pruebas unitarias.
 - `README.md`: Documentación detallada sobre la estructura y componentes de la aplicación.
 
+## Manual de despliegue
+
+# Manual de Despliegue de Servicios con Docker Compose
+
+Este manual de despliegue detalla los pasos necesarios para desplegar los servicios especificados en el archivo `docker-compose.yml` proporcionado. El archivo define tres servicios: backend, frontend y base de datos (db).
+
+## Prerrequisitos
+
+Antes de comenzar, asegúrate de tener instalados los siguientes componentes en tu sistema:
+
+## Prerrequisitos
+
+1. **Node**: Puedes descargarlo e instalarlo desde [nodejs.org](https://nodejs.org/).
+2. **Git**: Puedes descargarlo e instalarlo desde [git-scm.com](https://git-scm.com/).
+3. **Java 21**: Puedes descargarlo e instalarlo desde [oracle.com](https://www.oracle.com/java/technologies/javase-jdk21-downloads.html).
+4. **Docker**: Puedes descargarlo e instalarlo desde [docker.com](https://www.docker.com/).
+5. **Docker Compose**: Normalmente se incluye con Docker Desktop, pero puedes verificar la instalación ejecutando `docker-compose --version`.
+
+## Estructura del Proyecto
+
+Asegúrate de que tu estructura de directorios se parezca a la siguiente:
+
+```
+/src
+├── docker-compose.yml
+├── src-api
+│ └── Dockerfile
+└── src-frontend
+└── Dockerfile
+```
+
+## Descripción del Archivo docker-compose.yml
+
+El archivo `docker-compose.yml` define tres servicios:
+
+1. **backend**: Una API desarrollada con Spring Boot.
+2. **frontend**: Una aplicación web servida por un servidor web.
+3. **db**: Una base de datos MySQL.
+
+### Servicios
+
+#### Backend
+
+- **Contexto de construcción**: `./src-api`
+- **Dockerfile**: `./src-api/Dockerfile`
+- **Puerto**: `8080:8080`
+- **Dependencias**: Depende del servicio `db`.
+- **Variables de entorno**:
+  - `SPRING_DATASOURCE_URL`: URL de conexión a la base de datos.
+  - `SPRING_DATASOURCE_USERNAME`: Usuario de la base de datos.
+  - `SPRING_DATASOURCE_PASSWORD`: Contraseña de la base de datos.
+  - `SPRING_JPA_HIBERNATE_DDL_AUTO`: Configuración de Hibernate.
+  - `JWT_SECRET`: Clave secreta para JWT.
+
+#### Frontend
+
+- **Contexto de construcción**: `./src-frontend`
+- **Dockerfile**: `./src-frontend/Dockerfile`
+- **Puerto**: `3000:80`
+
+#### DB
+
+- **Imagen**: `mysql:8.0`
+- **Puerto**: `3306:3306`
+- **Variables de entorno**:
+  - `MYSQL_ROOT_PASSWORD`: Contraseña del usuario root.
+  - `MYSQL_DATABASE`: Nombre de la base de datos.
+- **Volúmenes**:
+  - `db_data:/var/lib/mysql`: Persistencia de datos.
+
+### Volúmenes
+
+- **db_data**: Volumen para la persistencia de datos de MySQL.
+
+# Guía para Construir y Desplegar los Servicios
+
+## 1. Clonar el Repositorio
+
+Clona el repositorio que contiene el archivo `docker-compose.yml` y los directorios `src-api` y `src-frontend`.
+
+```sh
+git clone https://github.com/Dani-Ps/fitconnect_final_project.git
+cd fitconnect_final_project
+```
+
+## 2. Construir y Desplegar los Servicios
+
+Antes de ejecutar el siguiente comando para construir y desplegar los servicios definidos en el archivo `docker-compose.yml`, asegúrate de seguir estos pasos:
+
+### Paso 1: Construir el Backend
+
+En el directorio `fitconnect_final_project/src/src-api`, ejecuta Maven para limpiar y construir la API:
+
+```sh
+cd fitconnect_final_project/src/src-api
+mvn clean install
+```
+
+### Paso 2: Instalar Dependencias del Frontend
+
+En el directorio `fitconnect_final_project/src/src-fronted`, ejecuta yarn install para instalar las dependencias del proyecto:
+
+```sh
+cd fitconnect_final_project/src/src-fronted
+yarn install
+
+```
+
+### Paso 3: Compilar el Frontend
+
+Una vez instaladas las dependencias, compila el frontend con Yarn:
+
+```sh
+yarn build
+
+```
+
+### Paso 4: Construir y Desplegar los Servicio
+
+Finalmente, ejecuta el siguiente comando en el directorio raíz del proyecto para construir y desplegar los servicios definidos en el archivo docker-compose.yml:
+
+```sh
+docker-compose up --build
+```
+
+## 3. Verificación
+
+- **Backend**: Accede a [http://localhost:8080](http://localhost:8080) para verificar que el backend está funcionando.
+- **Frontend**: Accede a [http://localhost:3000](http://localhost:3000) para verificar que el frontend está funcionando.
+- **DB**: El servicio MySQL estará disponible en `localhost:3306`.
+
+## 4. Administración de los Contenedores
+
+Para detener y eliminar los contenedores, redes y volúmenes creados por `docker-compose up`, ejecuta:
+
+```sh
+docker-compose down
+```
+
+Para detener los contenedores sin eliminarlos, ejecuta:
+
+```sh
+docker-compose stop
+```
+
+Para reiniciar los contenedores, ejecuta:
+
+```sh
+docker-compose start
+```
+
+## 5. Logs y Depuración
+
+Para ver los logs de todos los servicios, ejecuta:
+
+```sh
+docker-compose logs -f
+```
+
 ## Enlace a la documentación de la APIREST:
 
 [FitConnect - APIREST docs.](https://documenter.getpostman.com/view/34870994/2sA3JNa15u)
-https://www.youtube.com/watch?v=ZtF4CycqUDg
