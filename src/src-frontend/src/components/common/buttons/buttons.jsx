@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ThemeContext } from '../../../../contexts/ThemeProvider';
+import { ThemeContext } from '../../../contexts/ThemeProvider';
 
 import './style.scss';
 
-import { SunIcon, MoonIcon } from '../../../../assest/icon/themeIcons';
+import { SunIcon, MoonIcon } from '../../../assest/icon/themeIcons';
 
 const LoginButton = () => {
     const { theme } = useContext(ThemeContext);

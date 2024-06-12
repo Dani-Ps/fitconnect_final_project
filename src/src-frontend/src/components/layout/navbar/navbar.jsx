@@ -141,7 +141,7 @@ const SidebarComponent = ({ }) => {
                 }
                 break;
             case 'Home':
-                location.pathname = '/' ? window.location.reload : navigate('/');
+                navigate('/')
                 break;
             case 'Search':
                 handleOpenModal('searchModal');
@@ -152,8 +152,8 @@ const SidebarComponent = ({ }) => {
                 handleOpenModal('addModal');
                 break;
             case 'Profile':
-                const profileURL = `/admin/${userData.user.name}`;
-                navigate(profileURL)
+                const profileURL = `/${userData.user.name}`;
+                navigate(profileURL, { state: { user: userData.user } })
                 break;
             case 'Logout':
                 handleLogoutClick();
@@ -316,7 +316,7 @@ const FooterBarComponent = () => {
                 }
                 break;
             case 'Home':
-                location.pathname = '/' ? window.location.reload : navigate('/');
+                navigate('/')
                 break;
             case 'Search':
                 handleOpenModal('searchModal');
@@ -327,8 +327,8 @@ const FooterBarComponent = () => {
                 handleOpenModal('addModal');
                 break;
             case 'Profile':
-                const profileURL = `/admin/${userData.user.name}`;
-                navigate(profileURL)
+                const profileURL = `/${userData.user.name}`;
+                navigate(profileURL, { state: { user: userData.user } })
                 break;
             default:
                 break;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-
+import { useParams, useLocation } from 'react-router-dom';
 import { ThemeContext } from '../../contexts/ThemeProvider.js';
 import { useScreenContext } from '../../contexts/ScreenProvider.js';
 import { useAuthContext } from '../../contexts/AuthProvider.js';
@@ -7,8 +7,10 @@ import { useModalContext } from '../../contexts/ModalProvider.js';
 
 import Skeleton from '../../components/layout/skeleton/skeleton.jsx';
 import { Header } from '../../components/layout/header/header.jsx';
+import ProfileHeader from '../../components/common/profile/profileHeader.jsx';
+import ProfileNav from '../../components/common/profile/nav.jsx';
+import ActivityGrid from '../../components/common/profile/activityGrid.jsx';
 import { FooterBarComponent, SidebarComponent } from '../../components/layout/navbar/navbar.jsx';
-import ActivityPostComponent from '../../components/common/activity/activityPost.jsx';
 import FooterComponent from '../../components/layout/footer/footer.jsx';
 import { ToggleButton } from '../../components/common/buttons/buttons.jsx';
 import AddActivityForm from '../../components/common/addActivity/addActivityCard.jsx';
@@ -18,14 +20,20 @@ import { LogoiconClear } from '../../assest/icon/logo-clear';
 import { LogoutClear } from '../../assest/icon/sidebarIcons-clear.jsx';
 import { LogoutDark } from '../../assest/icon/sidebarIcons-dark.jsx';
 
-const HomePage = () => {
+import './style.scss';
+
+const ProfilePage = () => {
     // CONTEXTS
     const { isDark } = useContext(ThemeContext);
     const { screenWidth } = useScreenContext();
-    const { logout } = useAuthContext();
+    const { logout, userData } = useAuthContext();
     const { isModalOpen } = useModalContext();
     const isAddModalOpen = isModalOpen('addModal');
     const isSearchModalOpen = isModalOpen('searchModal');
+    const location = useLocation();
+
+    const user = location.state?.user;
+
     //#region SCREEN STATE
     const [isScreenSmall, setIsScreenSmall] = useState(false);
 
@@ -65,10 +73,13 @@ const HomePage = () => {
                                 </>}
                         />
                         <div className="main-content">
-                            <ActivityPostComponent />
-                            {isAddModalOpen && <AddActivityForm />}
-                            {isSearchModalOpen && <SearchModal />}
-
+                            <div className='profile-main-container'>
+                                <ProfileHeader user={user} />
+                                <ProfileNav />
+                                <ActivityGrid userId={user.id} token={userData.token} />
+                                {isAddModalOpen && <AddActivityForm />}
+                                {isSearchModalOpen && <SearchModal />}
+                            </div>
                         </div>
                     </>
                 }
@@ -83,9 +94,13 @@ const HomePage = () => {
                 <>
                     <SidebarComponent />
                     <div className="main-content">
-                        <ActivityPostComponent />
-                        {isAddModalOpen && <AddActivityForm />}
-                        {isSearchModalOpen && <SearchModal />}
+                        <div className='profile-main-container'>
+                            <ProfileHeader user={user} />
+                            <ProfileNav />
+                            <ActivityGrid userId={user.id} token={userData.token} />
+                            {isAddModalOpen && <AddActivityForm />}
+                            {isSearchModalOpen && <SearchModal />}
+                        </div>
                     </div>
                 </>
             }
@@ -93,5 +108,4 @@ const HomePage = () => {
         />
     );
 };
-
-export default HomePage;
+export default ProfilePage;
