@@ -12,7 +12,8 @@ import HomePage from './pages/home/homePage';
 import DashboardPage from './pages/admin/dashboardPage.jsx';
 import UserTable from './components/common/table/userTable.jsx';
 import AuthPage from './pages/auth/authPage.jsx';
-
+import UsersPage from './pages/admin/userPage.jsx';
+import ActivitiesPage from './pages/admin/activitiesPage.jsx';
 import "@fontsource/roboto";
 import './app.scss'
 
@@ -47,8 +48,8 @@ function App() {
             <>
               <Route path="/" element={<Navigate to="/dashboard" />} />
               <Route path="/dashboard" element={< DashboardPage />} />
-              <Route path="/manager/users" element={< UserTable />} />
-              <Route path="/manager/activities" element={< UserTable />} />
+              <Route path="/manager/users" element={< UsersPage />} />
+              <Route path="/manager/activities" element={< ActivitiesPage />} />
               <Route path="/manager/notifications" element={< UserTable />} />
               <Route path="/userDetails/:userName" element={<UserTable />} />
               <Route path="/admin/:userName" element={<UserTable />} />

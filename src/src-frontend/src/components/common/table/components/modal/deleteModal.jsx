@@ -15,5 +15,18 @@ const DeleteUserModal = ({ user, onDelete, onClose }) => {
         </div>
     );
 };
+const DeleteActivityModal = ({ activity, onDelete, onClose }) => {
+    return (
+        <div className="modal">
+            <div className="modal-content">
+                <span className="close" onClick={onClose}>&times;</span>
+                <h2>Confirm Deletion</h2>
+                <p>Are you sure you want to delete the user {activity.id}?</p>
+                <button onClick={onDelete}>Yes, Delete</button>
+                <button onClick={onClose}>Cancel</button>
+            </div>
+        </div>
+    );
+};
 
-export default DeleteUserModal;
+export { DeleteUserModal, DeleteActivityModal };

@@ -9,7 +9,7 @@ import { fetchAllUsers } from '../../service/userService.js';
 
 import Skeleton from '../../components/layout/skeleton/skeleton.jsx';
 import { Header } from '../../components/layout/header/header.jsx';
-import UserAgeChart from './components/chart/userAgeChart.jsx';
+import ActivityTable from '../../components/common/table/activityTable.jsx';
 import { FooterBarComponent, SidebarComponent } from '../../components/layout/navbar/navbar.jsx';
 import ActivityPostComponent from '../../components/common/activity/activityPost.jsx';
 import { ToggleButton } from './components/buttons/buttons.jsx';
@@ -21,7 +21,7 @@ import { LogoutDark } from '../../assest/icon/sidebarIcons-dark.jsx';
 
 import "./style.scss"
 
-const DashboardPage = () => {
+const ActivitiesPage = () => {
     // CONTEXTS
     const { isDark, theme } = useContext(ThemeContext);
     const { screenWidth } = useScreenContext();
@@ -66,13 +66,11 @@ const DashboardPage = () => {
                                 </>}
                         />
                         <div className="main-content">
-                            <div className='dashboard-container'>
-                                <div className='title' >
-                                    <h2 style={{ color: theme.gray12 }}>Dashboard</h2>
-                                </div>
-                                <div className='barUser-chart'>
-                                    <UserAgeChart />
-                                </div>
+                            <div className='title' >
+                                <h2 style={{ color: theme.gray12 }}>Activity Managment</h2>
+                            </div>
+                            <div className='table-container'>
+                                <ActivityTable />
                             </div>
                         </div>
                     </>
@@ -88,13 +86,11 @@ const DashboardPage = () => {
                 <>
                     <SidebarComponent />
                     <div className="main-content">
-                        <div className='dashboard-container'>
-                            <div className='title' >
-                                <h1 style={{ color: theme.gray12 }}>Dashboard</h1>
-                            </div>
-                            <div className='barUser-chart'>
-                                <UserAgeChart />
-                            </div>
+                        <div className='title' >
+                            <h1 style={{ color: theme.gray12 }}>Activity Managment</h1>
+                        </div>
+                        <div className='table-container'>
+                            <ActivityTable />
                         </div>
                     </div>
                 </>
@@ -104,4 +100,4 @@ const DashboardPage = () => {
     );
 };
 
-export default DashboardPage
+export default ActivitiesPage;

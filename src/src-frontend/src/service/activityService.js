@@ -97,5 +97,26 @@ const patchActivity = async (activityId, activity, token) => {
         throw error.message || 'Failed to update activity';
     }
 };
+const fetchAllActivities = async (token) => {
+    try {
+        const response = await fetch(`${API_ACTIVITY_PATH}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        });
 
-export { createActivity, getActivitiesByUserId, deleteActivity, patchActivity };
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Failed to get activities');
+        }
+
+        const activities = await response.json();
+        return Array.isArray(activities) ? activities : [];
+    } catch (error) {
+        console.error('Error getting activities:', error.message);
+    }
+};
+
+export { createActivity, getActivitiesByUserId, deleteActivity, patchActivity, fetchAllActivities };

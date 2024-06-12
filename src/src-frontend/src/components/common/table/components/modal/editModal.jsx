@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { updateUser } from '../../../../../service/adminService';
+import { patchActivity } from '../../../../../service/activityService';
 import './style.scss';
 const EditUserModal = ({ user, onUpdate, onClose, token }) => {
     const [userData, setUserData] = useState(user);
@@ -19,7 +20,7 @@ const EditUserModal = ({ user, onUpdate, onClose, token }) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            await updateUser(token, userData.id, userData);
+            await patchActivity(token, userData.id, userData);
             onUpdate(userData);
             onClose();
         } catch (error) {
@@ -46,4 +47,52 @@ const EditUserModal = ({ user, onUpdate, onClose, token }) => {
     );
 };
 
-export default EditUserModal;
+const EditActivityModal = ({ activity, onUpdate, onClose, token }) => {
+    const [activityData, setActivityData] = useState(activity);
+
+    useEffect(() => {
+        if (activity) {
+            setActivityData(activity);
+        }
+    }, [activity]);
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setActivityData(prevActivityData => ({ ...prevActivityData, [name]: value })); // Cambio aquí
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        try {
+            await patchActivity(activityData.id, activityData, token);
+            onUpdate(activityData);
+            onClose();
+        } catch (error) {
+            console.error('Error updating activity:', error.message); // Cambio aquí
+        }
+    };
+
+    return (
+        <div className="modal">
+            <div className="modal-content">
+                <span className="close" onClick={onClose}>&times;</span>
+                <h2>Edit Activity</h2>
+                <form onSubmit={handleSubmit}>
+                    <label htmlFor="title">Title:</label> {/* Ajuste aquí */}
+                    <input type="text" id="title" name="title" value={activityData.title} onChange={handleChange} required /> {/* Ajuste aquí */}
+                    <label htmlFor="type">Type:</label> {/* Ajuste aquí */}
+                    <input type="text" id="type" name="type" value={activityData.type} onChange={handleChange} required /> {/* Ajuste aquí */}
+                    <label htmlFor="duration">Duration:</label> {/* Ajuste aquí */}
+                    <input type="text" id="duration" name="duration" value={activityData.duration} onChange={handleChange} required /> {/* Ajuste aquí */}
+                    <label htmlFor="place">Place:</label> {/* Ajuste aquí */}
+                    <input type="text" id="place" name="place" value={activityData.place} onChange={handleChange} required /> {/* Ajuste aquí */}
+                    <button type="submit">Update</button>
+                </form>
+            </div>
+        </div>
+    );
+};
+
+export default EditActivityModal;
+
+export { EditUserModal, EditActivityModal };
