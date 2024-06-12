@@ -44,5 +44,28 @@ const fetchUserData = async (token, id, updateUser) => {
         console.error('Error getting user data:', error.message);
     }
 };
+const addFriend = async (token, userId, friendId) => {
+    try {
+        const response = await fetch(`${API_USER_PATH}/addFriend/${friendId}?userId=${userId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        });
 
-export { fetchAllUsers, fetchUserData }
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Failed to add friend');
+        }
+
+        const result = await response.text();
+        console.log('Friend added successfully:', result);
+        return result;
+    } catch (error) {
+        console.error('Error adding friend:', error.message);
+    }
+};
+
+
+export { fetchAllUsers, fetchUserData, addFriend }
