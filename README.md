@@ -841,4 +841,4 @@ docker-compose logs -f
 
 ## Enlace a la documentación de la APIREST:
 
-[FitConnect - APIREST docs.](https://documenter.getpostman.com/view/34870994/2sA3JNa15u)
+[FitConnect - APIREST docs.](https://documenter.getpostman.com/view/34870994/2sA3XPCMt4)
