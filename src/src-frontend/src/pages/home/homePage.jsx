@@ -12,11 +12,11 @@ import ActivityPostComponent from '../../components/common/activity/activityPost
 import FooterComponent from '../../components/layout/footer/footer.jsx';
 import { ToggleButton } from './components/buttons/buttons.jsx';
 import AddActivityForm from '../../components/common/addActivity/addActivityCard.jsx';
+import SearchModal from '../../components/common/search/searchModal.jsx';
 import { LogoiconDark } from '../../assest/icon/logo-dark';
 import { LogoiconClear } from '../../assest/icon/logo-clear';
 import { LogoutClear } from '../../assest/icon/sidebarIcons-clear.jsx';
 import { LogoutDark } from '../../assest/icon/sidebarIcons-dark.jsx';
-
 const HomePage = () => {
     // CONTEXTS
     const { isDark } = useContext(ThemeContext);
@@ -24,7 +24,7 @@ const HomePage = () => {
     const { logout } = useAuthContext();
     const { isModalOpen } = useModalContext();
     const isAddModalOpen = isModalOpen('addModal');
-
+    const isSearchModalOpen = isModalOpen('searchModal');
     //#region SCREEN STATE
     const [isScreenSmall, setIsScreenSmall] = useState(false);
 
@@ -66,6 +66,8 @@ const HomePage = () => {
                         <div className="main-content">
                             <ActivityPostComponent />
                             {isAddModalOpen && <AddActivityForm />}
+                            {isSearchModalOpen && <SearchModal />}
+
                         </div>
                     </>
                 }
@@ -82,7 +84,7 @@ const HomePage = () => {
                     <div className="main-content">
                         <ActivityPostComponent />
                         {isAddModalOpen && <AddActivityForm />}
-
+                        {isSearchModalOpen && <SearchModal />}
                     </div>
                 </>
             }
