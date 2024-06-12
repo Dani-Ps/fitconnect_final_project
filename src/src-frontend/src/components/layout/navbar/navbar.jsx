@@ -152,8 +152,8 @@ const SidebarComponent = ({ }) => {
                 handleOpenModal('addModal');
                 break;
             case 'Profile':
-                const profileURL = `/admin/${userData.user.name}`;
-                navigate(profileURL)
+                const profileURL = `/${userData.user.name}`;
+                navigate(profileURL, { state: { user: userData.user } })
                 break;
             case 'Logout':
                 handleLogoutClick();
