@@ -1,100 +1,19 @@
-.modal {
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  width: 80vw;
+  height: 100%;
+  margin-top: 0;
+  margin-left: 200px;
+  align-items: center;
+}
+.dashboard-container .title {
+  margin-top: 50px;
+}
+.dashboard-container .chart-container {
+  width: 76%;
+  height: auto;
+  margin: 100px auto;
   display: flex;
   justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(5px);
-}
-.modal .modal-content {
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  max-width: 500px;
-  width: 100%;
-  text-align: center;
-  position: relative;
-}
-.modal .modal-content .close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 24px;
-  cursor: pointer;
-}
-.modal .modal-content h2 {
-  margin-bottom: 20px;
-  font-size: 1.5em;
-  color: #333;
-}
-.modal .modal-content input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-}
-.modal .modal-content .user-list {
-  list-style: none;
-  padding: 0;
-  max-height: 200px;
-  overflow-y: auto;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  /* Estilos para la barra de scroll */
-}
-.modal .modal-content .user-list .user-list-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  border-bottom: 1px solid #eee;
-}
-.modal .modal-content .user-list .user-list-item:last-child {
-  border-bottom: none;
-}
-.modal .modal-content .user-list .user-list-item span {
-  font-size: 16px;
-  color: #333;
-}
-.modal .modal-content .user-list .user-list-item .buttons button {
-  margin-left: 10px;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-}
-.modal .modal-content .user-list .user-list-item .buttons button:first-of-type {
-  background-color: #28a745;
-  color: white;
-}
-.modal .modal-content .user-list .user-list-item .buttons button:last-of-type {
-  background-color: #007bff;
-  color: white;
-}
-
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
 }/*# sourceMappingURL=style.css.map */
