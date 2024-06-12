@@ -2,8 +2,11 @@ package com.fitconnet.persitence.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -49,8 +52,9 @@ public class Notification {
 	/**
 	 * The user who receives the notification.
 	 */
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "C_NOTIFICATION_RECIEVER", nullable = false)
+	@JsonBackReference
 	private User receiver;
 
 }
