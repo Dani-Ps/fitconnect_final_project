@@ -1,9 +1,5 @@
 package com.fitconnet.controller.user;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,7 +9,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -75,31 +70,6 @@ public class AdminController {
 	 * Logger instance for AdminController class.
 	 */
 	private final Logger logger = LoggerFactory.getLogger(AdminController.class);
-
-	/**
-	 * Retrieves dashboard data.
-	 * 
-	 * <p>
-	 * Retrieves data for the admin dashboard, including user information and
-	 * activities.
-	 * </p>
-	 * 
-	 * @return ResponseEntity<Map<String, Object>> The response entity containing
-	 *         the dashboard data.
-	 */
-	@GetMapping
-	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
-	@Operation(summary = "Show Dashboard", description = "Retrieves data for the admin dashboard, including user information and activities.")
-	@ApiResponse(responseCode = "200", description = "Dashboard data retrieved successfully")
-	public ResponseEntity<Map<String, Object>> showDashboard() {
-		logger.info("## AdminController :: showDashboard");
-		List<UserDTO> userList = userService.getAll();
-		List<ActivityDTO> activities = activityService.getAll();
-		Map<String, Object> dashboardData = new HashMap<>();
-		dashboardData.put("users", userList);
-		dashboardData.put("activities", activities);
-		return ResponseEntity.ok().body(dashboardData);
-	}
 
 	/**
 	 * Updates a user.
@@ -209,33 +179,6 @@ public class AdminController {
 				() -> ResponseEntity.status(HttpStatus.CONFLICT).body(Constants.USER_NOT_FOUND), () -> {
 					userService.deleteById(id);
 					return ResponseEntity.ok().body("User has been deleted successfully.");
-				});
-		return response;
-	}
-
-	/**
-	 * Deletes an activity.
-	 * 
-	 * <p>
-	 * Deletes the activity with the specified ID.
-	 * </p>
-	 * 
-	 * @param id The ID of the activity to be deleted.
-	 * @return ResponseEntity<String> The response entity indicating the success or
-	 *         failure of the deletion operation.
-	 */
-	@DeleteMapping("/activity/{id}")
-	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
-	@Operation(summary = "Delete Activity", description = "Deletes an activity.")
-	@ApiResponse(responseCode = "200", description = "Activity deleted successfully")
-	public ResponseEntity<String> deleteActivity(@PathVariable Long id) {
-		logger.info("AdminController :: deleteActivity");
-		ResponseEntity<String> response = null;
-		Boolean exist = activityService.existById(id);
-		response = processingResponseI.processStringResponse(exist,
-				() -> ResponseEntity.status(HttpStatus.CONFLICT).body(Constants.ACTIVITY_NOT_FOUND), () -> {
-					activityService.deleteById(id);
-					return ResponseEntity.ok().body("Activity has been deleted successfully.");
 				});
 		return response;
 	}
