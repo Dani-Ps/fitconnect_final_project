@@ -1,0 +1,53 @@
+// userTable.scss
+table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th,
+    td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+    margin-right: 8px;
+
+    &:disabled {
+        background-color: #999;
+        cursor: not-allowed;
+    }
+}
+
+.pagination {
+    margin-top: 10px;
+}
+
+.pagination button {
+    margin-right: 5px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    background-color: #b1b1b1d9;
+    cursor: pointer;
+    color: black;
+}
+
+.pagination button.active {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+a {
+    text-decoration: none;
+}
