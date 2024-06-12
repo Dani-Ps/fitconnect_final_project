@@ -89,6 +89,28 @@ public class UserServiceImpl implements UserServiceI {
 	}
 
 	@Override
+	public String addFriend(Long userId, Long friendId) {
+		String response = "";
+
+		User user = userRepository.findById(userId)
+				.orElseThrow(() -> new UserNotFoundException(Constants.USER_NOT_FOUND, HttpStatus.NOT_FOUND));
+		User friend = userRepository.findById(friendId)
+				.orElseThrow(() -> new UserNotFoundException(Constants.USER_NOT_FOUND, HttpStatus.NOT_FOUND));
+
+		if (user.getFriends().contains(friend)) {
+			response = "Friend already added.";
+		} else {
+			List<User> auxList = user.getFriends();
+			auxList.add(friend);
+			user.setFriends(auxList);
+			userRepository.save(user);
+			response = "Friend added successfully.";
+		}
+
+		return response;
+	}
+
+	@Override
 	public void update(Long id, UserDTO user) {
 		if (!userRepository.findById(id).isPresent()) {
 			throw new UserNotFoundException(Constants.USER_NOT_FOUND, HttpStatus.NOT_FOUND);

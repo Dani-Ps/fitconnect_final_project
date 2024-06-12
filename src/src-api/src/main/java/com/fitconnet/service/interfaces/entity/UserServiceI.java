@@ -28,14 +28,6 @@ public interface UserServiceI {
 	UserDTO getById(Long id);
 
 	/**
-	 * Retrieves a user by username.
-	 * 
-	 * @param userName The username of the user to retrieve.
-	 * @return The user with the specified username, if found.
-	 */
-	// UserDTO getByUserName(String userName);
-
-	/**
 	 * Retrieves the friends of a user.
 	 * 
 	 * @param id The id of the user.
@@ -72,6 +64,8 @@ public interface UserServiceI {
 	 * @param user The user to create.
 	 */
 	JwtAuthenticationDTO create(UserDTO user);
+
+	String addFriend(Long userId, Long friendId);
 
 	/**
 	 * Updates a user.
