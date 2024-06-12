@@ -19,7 +19,6 @@ import { CreateDark, HomeDark, LogoutDark, NotificationDark, ProfileDark, Search
 import { DasboardIconClear, NotificationIconClear, PostIconClear, UserIconClear } from '../../../assest/icon/adminSidebarIcons-clear';
 import { DasboardIconDark, NotificationIconDark, PostIconDark, UserIconDark } from '../../../assest/icon/adminSidebarIcons-dark';
 
-
 import './style.scss';
 
 const SidebarComponent = ({ }) => {
@@ -27,8 +26,10 @@ const SidebarComponent = ({ }) => {
     const { theme, isDark } = useContext(ThemeContext);
     const { logout, userData } = useAuthContext();
     const { openModal } = useModalContext();
-    const handleOpenAddModal = () => openModal('addModal');
 
+    const handleOpenModal = (modalId) => {
+        openModal(modalId);
+    };
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -143,11 +144,12 @@ const SidebarComponent = ({ }) => {
                 location.pathname = '/' ? window.location.reload : navigate('/');
                 break;
             case 'Search':
+                handleOpenModal('searchModal');
                 break;
             case 'Notifications':
                 break;
             case 'Create':
-                handleOpenAddModal();
+                handleOpenModal('addModal');
                 break;
             case 'Profile':
                 const profileURL = `/admin/${userData.user.name}`;
@@ -164,7 +166,7 @@ const SidebarComponent = ({ }) => {
 
     if (isScreenSmall) {
         return (
-            <div className="sidebar-container" style={{ borderColor: theme.gray8 }}>
+            <div className="sidebar-container" style={{ borderColor: theme.gray8, background: theme.colorBackground }}>
                 <div className='logo-container'>
                     <Link to="/home">
                         {isDark ? <LogoiconDark {...svgLogoIconProps} /> : <LogoiconClear {...svgLogoIconProps} />}
@@ -232,7 +234,9 @@ const FooterBarComponent = () => {
     const { userData } = useAuthContext();
     const { theme, isDark } = useContext(ThemeContext);
     const { openModal } = useModalContext();
-    const handleOpenAddModal = () => openModal('addModal');
+    const handleOpenModal = (modalId) => {
+        openModal(modalId);
+    };
     const location = useLocation();
     const navigate = useNavigate();
     const profileImage = userData?.user?.image;
@@ -315,11 +319,12 @@ const FooterBarComponent = () => {
                 location.pathname = '/' ? window.location.reload : navigate('/');
                 break;
             case 'Search':
+                handleOpenModal('searchModal');
                 break;
             case 'Notifications':
                 break;
             case 'Create':
-                handleOpenAddModal();
+                handleOpenModal('addModal');
                 break;
             case 'Profile':
                 const profileURL = `/admin/${userData.user.name}`;

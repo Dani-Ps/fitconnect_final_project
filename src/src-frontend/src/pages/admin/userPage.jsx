@@ -5,19 +5,16 @@ import { useScreenContext } from '../../contexts/ScreenProvider.js';
 import { useAuthContext } from '../../contexts/AuthProvider.js';
 import { useModalContext } from '../../contexts/ModalProvider.js';
 
-import { fetchAllUsers } from '../../service/userService.js';
-
 import Skeleton from '../../components/layout/skeleton/skeleton.jsx';
 import { Header } from '../../components/layout/header/header.jsx';
 import UserTable from '../../components/common/table/userTable.jsx';
 import { FooterBarComponent, SidebarComponent } from '../../components/layout/navbar/navbar.jsx';
-import ActivityPostComponent from '../../components/common/activity/activityPost.jsx';
 import { ToggleButton } from './components/buttons/buttons.jsx';
-import AddActivityForm from '../../components/common/addActivity/addActivityCard.jsx';
 import { LogoiconDark } from '../../assest/icon/logo-dark';
 import { LogoiconClear } from '../../assest/icon/logo-clear';
 import { LogoutClear } from '../../assest/icon/sidebarIcons-clear.jsx';
 import { LogoutDark } from '../../assest/icon/sidebarIcons-dark.jsx';
+import SearchModal from '../../components/common/search/searchModal.jsx';
 
 import "./style.scss"
 
@@ -27,6 +24,7 @@ const UsersPage = () => {
     const { screenWidth } = useScreenContext();
     const { logout, userData, update } = useAuthContext();
     const { isModalOpen } = useModalContext();
+    const isSearchModalOpen = isModalOpen('searchModal');
 
     //#region SCREEN STATE
     const [isScreenSmall, setIsScreenSmall] = useState(false);
@@ -72,6 +70,8 @@ const UsersPage = () => {
                             <div className='table-container'>
                                 <UserTable />
                             </div>
+                            {isSearchModalOpen && <SearchModal />}
+
                         </div>
                     </>
                 }
@@ -92,6 +92,8 @@ const UsersPage = () => {
                         <div className='table-container'>
                             <UserTable />
                         </div>
+                        {isSearchModalOpen && <SearchModal />}
+
                     </div>
                 </>
             }

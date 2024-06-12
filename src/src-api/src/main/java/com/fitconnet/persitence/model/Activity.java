@@ -32,7 +32,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class  Activity implements Serializable {
+public class Activity implements Serializable {
 	@Serial
 	private static final long serialVersionUID = 1L;
 	/**
@@ -80,7 +80,7 @@ public class  Activity implements Serializable {
 	 * The creator of the activity.
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "C_ACTIVITY_CREATOR")
+	@JoinColumn(name = "C_ACTIVITY_CREATOR", nullable = false)
 	@JsonBackReference
 	private User creator;
 
