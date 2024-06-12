@@ -15,6 +15,7 @@ import AuthPage from './pages/auth/authPage.jsx';
 import UsersPage from './pages/admin/userPage.jsx';
 import ActivitiesPage from './pages/admin/activitiesPage.jsx';
 import PruebasPage from './pages/pruebasPage.jsx';
+import ProfilePage from './pages/profile/profilePage.jsx';
 import "@fontsource/roboto";
 import './app.scss'
 
@@ -62,7 +63,7 @@ function App() {
             <>
               <Route path="/" element={<HomePage />} />
               <Route path="/home" element={<Navigate to="/" />} />
-              <Route path="/:userName" element={<HomePage />} />
+              <Route path="/:userName" element={<ProfilePage />} />
             </>
           )}
         </Route>
