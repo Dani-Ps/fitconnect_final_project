@@ -134,8 +134,6 @@ El proyecto utiliza las siguientes tecnologías y dependencias:
         📄 ActivityController.java
     📁 auth
         📄 AuthenticationController.java
-    📁 comment
-        📄 CommentController.java
     📁 notification
         📄 NotificationController.java
     📁 user
@@ -144,7 +142,6 @@ El proyecto utiliza las siguientes tecnologías y dependencias:
 📁 dto
     📁 entities
         📄 ActivityDTO.java
-        📄 CommentDTO.java
         📄 NotificationDTO.java
         📄 UserDTO.java
     📁 requets
@@ -168,19 +165,16 @@ El proyecto utiliza las siguientes tecnologías y dependencias:
 📁 persitence
     📁 model
         📄 Activity.java
-        📄 Comment.java
         📄 Notification.java
         📄 User.java
     📁 repository
         📄 ActivityRepository.java
-        📄 CommentRepository.java
         📄 NotificationRepository.java
         📄 UserRepository.java
 📁 service
     📁 implementations
         📁 entity
             📄 ActivityServiceImpl.java
-            📄 CommentServiceImpl.java
             📄 NotificationServiceImpl.java
             📄 ProcessingResponseImpl.java
             📄 UserServiceImpl.java
@@ -190,7 +184,6 @@ El proyecto utiliza las siguientes tecnologías y dependencias:
     📁 interfaces
         📁 entity
             📄 ActivityServiceI.java
-            📄 CommentServiceI.java
             📄 NotificationServiceI.java
             📄 ProcessingResponseI.java
             📄 UserServiceI.java
@@ -199,25 +192,104 @@ El proyecto utiliza las siguientes tecnologías y dependencias:
             📄 JwtServiceI.java
 📁 utils
     📄 Constants.java
-    📁 mappers
-        📄 ActivityMapper.java
-        📄 CommentMapper.java
-        📄 NotificationMapper.java
-        📄 UserMapper.java
+    📄 Mappers.java
 ```
 
 ### **Descripción**
 
 La estructura de paquetes de la aplicación `fitConnect-backend` está organizada de la siguiente manera:
 
-- **config**: Contiene configuraciones de seguridad y CORS.
-- **controller**: Controladores REST para gestionar las diferentes entidades como actividad, autenticación, comentarios, notificaciones y usuarios.
-- **dto**: Objetos de transferencia de datos (DTO) para entidades, solicitudes y respuestas.
-- **enums**: Enumeraciones utilizadas en la aplicación.
-- **error**: Manejadores globales de excepciones y clases de excepciones específicas.
-- **persistence**: Modelos y repositorios para la persistencia de datos.
-- **service**: Implementaciones e interfaces de servicios para la lógica de negocio, incluyendo seguridad y manejo de entidades.
-- **utils**: Clases de utilidades y mapeadores para convertir entre entidades y DTOs.
+#### 1. `config`
+
+- Contiene configuraciones generales de la aplicación.
+  - `DataInitializer.java`: Inicializa datos en la base de datos al iniciar la aplicación.
+  - **`cors`**: Configuraciones para manejar solicitudes CORS.
+    - `CorsConfig.java`: Configuración para manejar solicitudes CORS.
+
+#### 2. `controller`
+
+- Contiene los controladores que manejan las solicitudes HTTP entrantes.
+  - **`activity`**: Controladores para actividades.
+    - `ActivityController.java`: Maneja solicitudes relacionadas con actividades.
+  - **`auth`**: Controladores para autenticación.
+    - `AuthenticationController.java`: Maneja solicitudes de autenticación.
+  - **`notification`**: Controladores para notificaciones.
+    - `NotificationController.java`: Maneja solicitudes relacionadas con notificaciones.
+  - **`user`**: Controladores para usuarios.
+    - `AdminController.java`: Maneja solicitudes administrativas.
+    - `UserController.java`: Maneja solicitudes relacionadas con usuarios.
+
+#### 3. `dto`
+
+- Contiene objetos de transferencia de datos (DTO).
+  - **`entities`**: DTO para entidades del sistema.
+    - `ActivityDTO.java`: DTO para actividades.
+    - `NotificationDTO.java`: DTO para notificaciones.
+    - `UserDTO.java`: DTO para usuarios.
+  - **`requests`**: DTO para solicitudes.
+    - `SignUp.java`: DTO para solicitudes de registro.
+    - `Signin.java`: DTO para solicitudes de inicio de sesión.
+  - **`response`**: DTO para respuestas.
+    - `ErrorDetailsDTO.java`: DTO para detalles de errores.
+    - `JwtAuthenticationDTO.java`: DTO para autenticación JWT.
+
+#### 4. `enums`
+
+- Contiene enumeraciones utilizadas en la aplicación.
+  - `Role.java`: Enum para roles de usuario.
+
+#### 5. `error`
+
+- Maneja errores y excepciones globales.
+  - `GlobalExceptionHandler.java`: Controlador global de excepciones.
+  - **`exception`**: Excepciones específicas.
+    - **`activity`**: Excepciones relacionadas con actividades.
+      - `ActivityNotFoundException.java`: Excepción para actividades no encontradas.
+    - **`notifications`**: Excepciones relacionadas con notificaciones.
+      - `NotificationCreationException.java`: Excepción para errores en la creación de notificaciones.
+      - `NotificationNotFoundException.java`: Excepción para notificaciones no encontradas.
+    - **`user`**: Excepciones relacionadas con usuarios.
+      - `UserNotFoundException.java`: Excepción para usuarios no encontrados.
+
+#### 6. `persistence`
+
+- Contiene las clases de modelo y repositorios para la persistencia de datos.
+  - **`model`**: Clases de modelo.
+    - `Activity.java`: Modelo de datos para actividades.
+    - `Notification.java`: Modelo de datos para notificaciones.
+    - `User.java`: Modelo de datos para usuarios.
+  - **`repository`**: Repositorios para acceso a datos.
+    - `ActivityRepository.java`: Repositorio para actividades.
+    - `NotificationRepository.java`: Repositorio para notificaciones.
+    - `UserRepository.java`: Repositorio para usuarios.
+
+#### 7. `service`
+
+- Contiene implementaciones e interfaces de servicios.
+  - **`implementations`**: Implementaciones de servicios.
+    - **`entity`**: Implementaciones de servicios para entidades.
+      - `ActivityServiceImpl.java`: Implementación del servicio de actividades.
+      - `NotificationServiceImpl.java`: Implementación del servicio de notificaciones.
+      - `ProcessingResponseImpl.java`: Implementación del servicio de procesamiento de respuestas.
+      - `UserServiceImpl.java`: Implementación del servicio de usuarios.
+    - **`security`**: Implementaciones de servicios de seguridad.
+      - `AuthenticationServiceImpl.java`: Implementación del servicio de autenticación.
+      - `JwtServiceImpl.java`: Implementación del servicio JWT.
+  - **`interfaces`**: Interfaces de servicios.
+    - **`entity`**: Interfaces de servicios para entidades.
+      - `ActivityServiceI.java`: Interfaz del servicio de actividades.
+      - `NotificationServiceI.java`: Interfaz del servicio de notificaciones.
+      - `ProcessingResponseI.java`: Interfaz del servicio de procesamiento de respuestas.
+      - `UserServiceI.java`: Interfaz del servicio de usuarios.
+    - **`security`**: Interfaces de servicios de seguridad.
+      - `AuthenticationServiceI.java`: Interfaz del servicio de autenticación.
+      - `JwtServiceI.java`: Interfaz del servicio JWT.
+
+#### 8. `utils`
+
+- Contiene utilidades y clases de apoyo.
+  - `Constants.java`: Constantes utilizadas en la aplicación.
+  - `Mappers.java`: Clases para mapear entre entidades y DTOs.
 
 ## - **Carpeta src-frontend**
 
@@ -249,7 +321,6 @@ El proyecto utiliza las siguientes tecnologías y dependencias:
 ### Solicitudes HTTP
 
 - **axios 1.7.2**: Cliente HTTP para realizar solicitudes a servidores.
-- **react-axios 2.0.6**: Integración de Axios en componentes de React.
 
 ### Componentes y Utilidades Adicionales
 
@@ -298,8 +369,19 @@ Este stack tecnológico proporciona una base sólida para desarrollar, estilizar
 📄 App.js
 📄 App.test.js
 📁 _css
+    📄 activityFormStyle.css
+    📄 activityFormStyle.css.map
     📄 app.css
     📄 app.css.map
+    📄 main.css
+    📄 main.css.map
+    📄 publicationStyle.css
+    📄 publicationStyle.css.map
+    📄 style.css
+    📄 style.css.map
+    📄 styles.module.css
+    📄 styles.module.css.map
+📄 app.scss
 📁 assest
     📁 examples
         📄 avatar.png
@@ -311,8 +393,12 @@ Este stack tecnológico proporciona una base sólida para desarrollar, estilizar
         📄 pexels-pixabay-54326.jpg
         📄 portada.jpg
     📁 icon
+        📄 adminSidebarIcons-clear.jsx
+        📄 adminSidebarIcons-dark.jsx
         📄 logo-clear.jsx
         📄 logo-dark.jsx
+        📄 profileIcon.jsx
+        📄 publicationOptions.jsx
         📄 sidebarIcons-clear.jsx
         📄 sidebarIcons-dark.jsx
         📄 style.scss
@@ -322,9 +408,23 @@ Este stack tecnológico proporciona una base sólida para desarrollar, estilizar
         📁 activity
             📄 activityPost.jsx
             📁 components
+                📁 dotsIcon
+                    📄 DotsComponent.jsx
+                    📄 style.scss
                 📁 icon
                     📄 activityIcon-clear.jsx
                     📄 activityIcon-dark.jsx
+                📁 patchActivity
+                    📁 components
+                        📁 icons
+                            📄 addImageIcon.jsx
+                            📄 closeIcon.jsx
+                            📄 style.scss
+                        📁 timeInput
+                            📄 style.scss
+                            📄 timeInput.jsx
+                    📄 patchActivityCard.jsx
+                    📄 style.scss
                 📁 profilePicture
                     📄 profilePicture.jsx
                     📄 style.scss
@@ -340,15 +440,34 @@ Este stack tecnológico proporciona una base sólida para desarrollar, estilizar
                     📄 style.scss
                     📄 timeInput.jsx
             📄 style.scss
+        📁 buttons
+            📄 buttons.jsx
+            📄 style.scss
         📁 imageUpload
             📄 imageUpload.jsx
+        📁 profile
+            📄 activityDetails.jsx
+            📄 activityGrid.jsx
+            📄 nav.jsx
+            📄 profileHeader.jsx
+            📄 style.scss
+        📁 search
+            📄 searchModal.jsx
+            📄 style.scss
+        📁 table
+            📄 activityTable.jsx
+            📁 components
+                📁 modal
+                    📄 deleteModal.jsx
+                    📄 editModal.jsx
+                    📄 style.scss
+            📄 style.scss
+            📄 userTable.jsx
     📁 layout
         📁 footer
             📄 footer.jsx
             📄 style.scss
         📁 header
-            📁 components
-                📁 icon
             📄 header.jsx
             📄 style.scss
         📁 navbar
@@ -370,7 +489,6 @@ Este stack tecnológico proporciona una base sólida para desarrollar, estilizar
     📄 ThemeProvider.js
 📁 hooks
     📄 useAuth.js
-    📄 useContinuousUpdates.js
     📄 useModal.js
     📄 useScreen.js
     📄 useTheme.js
@@ -380,6 +498,19 @@ Este stack tecnológico proporciona una base sólida para desarrollar, estilizar
     📄 activityDTO.js
     📄 userDTO.js
 📁 pages
+    📁 admin
+        📄 activitiesPage.jsx
+        📁 components
+            📁 buttons
+                📄 buttons.jsx
+                📄 style.scss
+            📁 chart
+                📄 activityLineChart.jsx
+                📄 style.scss
+                📄 userAgeChart.jsx
+        📄 dashboardPage.jsx
+        📄 style.scss
+        📄 userPage.jsx
     📁 auth
         📄 authPage.jsx
         📁 components
@@ -391,107 +522,162 @@ Este stack tecnológico proporciona una base sólida para desarrollar, estilizar
                 📄 signup.jsx
                 📄 style.scss
     📁 home
-        📁 components
-            📁 buttons
-                📄 buttons.jsx
-                📄 style.scss
         📄 homePage.jsx
+    📁 profile
+        📄 profilePage.jsx
+        📄 style.scss
+    📄 pruebasPage.jsx
 📄 reportWebVitals.js
 📁 scss
     📄 _clear-theme.scss
     📄 _dark-theme.scss
     📄 _imports.scss
 📁 service
+    📄 ProtectedRouterService.js
     📄 activityService.js
     📄 adminService.js
     📄 authService.js
     📄 imageService.js
     📄 notificationService.js
-    📄 routerProtectionService.js
     📄 userService.js
 📄 setupTests.js
 
 ```
 
-### Descripción de la Estructura
+# Estructura de la Aplicación
 
-#### Archivos Raíz
+## Archivos Raíz
 
 - `App.js`: El componente principal de la aplicación React.
 - `App.test.js`: Pruebas unitarias para el componente `App`.
 
-#### Carpetas Principales
+## Carpetas Principales
 
-- **\_css**: Contiene archivos CSS para el estilado de la aplicación.
+### \_css
 
-  - `app.css`: Hoja de estilos principal.
-  - `app.css.map`: Mapa de origen para el archivo CSS.
+Contiene archivos CSS para el estilado de la aplicación.
 
-- **assest**: Contiene recursos estáticos como imágenes y iconos.
+- `activityFormStyle.css`: Estilos para el formulario de actividad.
+- `activityFormStyle.css.map`: Mapa de origen para el archivo CSS.
+- `app.css`: Hoja de estilos principal.
+- `app.css.map`: Mapa de origen para el archivo CSS.
+- `main.css`: Estilos principales de la aplicación.
+- `main.css.map`: Mapa de origen para el archivo CSS.
+- `publicationStyle.css`: Estilos para publicaciones.
+- `publicationStyle.css.map`: Mapa de origen para el archivo CSS.
+- `style.css`: Hoja de estilos general.
+- `style.css.map`: Mapa de origen para el archivo CSS.
+- `styles.module.css`: Módulo de estilos CSS.
+- `styles.module.css.map`: Mapa de origen para el módulo de estilos CSS.
 
-  - **examples**: Ejemplos de imágenes usadas en la aplicación.
-  - **icon**: Componentes de React que representan iconos, junto con sus estilos.
+### assest
 
-- **components**: Contiene componentes reutilizables de la aplicación.
+Contiene recursos estáticos como imágenes y iconos.
 
-  - **common**: Componentes comunes utilizados en diferentes partes de la aplicación.
-    - **activity**: Componentes relacionados con actividades, incluyendo iconos y estilos.
-    - **addActivity**: Componentes para añadir actividades, incluyendo iconos y estilos.
-    - **imageUpload**: Componente para la subida de imágenes.
-  - **layout**: Componentes de diseño de la aplicación.
-    - **footer**: Pie de página.
-    - **header**: Encabezado de la aplicación.
-    - **navbar**: Barra de navegación.
-    - **skeleton**: Componente para mostrar esqueletos de carga.
+- examples: Ejemplos de imágenes usadas en la aplicación.
+- icon: Componentes de React que representan iconos, junto con sus estilos.
 
-- **contexts**: Proveedores de contexto para manejar estados globales de la aplicación.
+### components
 
-  - `AuthProvider.js`: Proveedor de autenticación.
-  - `ModalProvider.js`: Proveedor de modales.
-  - `ScreenProvider.js`: Proveedor de estados de pantalla.
-  - `ThemeProvider.js`: Proveedor de temas.
+Contiene componentes reutilizables de la aplicación.
 
-- **hooks**: Hooks personalizados para manejar lógica específica.
+#### common
 
-  - `useAuth.js`: Hook para la autenticación.
-  - `useContinuousUpdates.js`: Hook para actualizaciones continuas.
-  - `useModal.js`: Hook para manejar modales.
-  - `useScreen.js`: Hook para manejar estados de pantalla.
-  - `useTheme.js`: Hook para manejar temas.
+Componentes comunes utilizados en diferentes partes de la aplicación.
 
-- **model**: Definiciones de modelos de datos.
+- activity: Componentes relacionados con actividades, incluyendo iconos y estilos.
+- addActivity: Componentes para añadir actividades, incluyendo iconos y estilos.
+- buttons: Componentes de botones.
+- imageUpload: Componente para la subida de imágenes.
+- profile: Componentes relacionados con perfiles de usuario.
+- search: Componentes para la búsqueda.
+- table: Componentes para tablas de datos.
 
-  - `ActivityTypes.js`: Tipos de actividad.
-  - `activityDTO.js`: DTO para actividad.
-  - `userDTO.js`: DTO para usuario.
+#### layout
 
-- **pages**: Componentes de página para diferentes rutas.
+Componentes de diseño de la aplicación.
 
-  - **auth**: Página de autenticación.
-    - **components**: Componentes específicos para la página de autenticación.
-  - **home**: Página de inicio.
-    - **components**: Componentes específicos para la página de inicio.
+- footer: Pie de página.
+- header: Encabezado de la aplicación.
+- navbar: Barra de navegación.
+- skeleton: Componente para mostrar esqueletos de carga.
 
-- **scss**: Archivos SCSS para el estilado temático.
+### contexts
 
-  - `_clear-theme.scss`: Estilos para el tema claro.
-  - `_dark-theme.scss`: Estilos para el tema oscuro.
-  - `_imports.scss`: Importaciones SCSS.
+Proveedores de contexto para manejar estados globales de la aplicación.
 
-- **service**: Servicios para manejar la lógica de negocio y las interacciones con APIs.
-  - `activityService.js`: Servicio para actividades.
-  - `adminService.js`: Servicio para administración.
-  - `authService.js`: Servicio para autenticación.
-  - `imageService.js`: Servicio para manejo de imágenes.
-  - `notificationService.js`: Servicio para notificaciones.
-  - `routerProtectionService.js`: Servicio para protección de rutas.
-  - `userService.js`: Servicio para manejo de usuarios.
+- `AuthProvider.js`: Proveedor de autenticación.
+- `ModalProvider.js`: Proveedor de modales.
+- `ScreenProvider.js`: Proveedor de estados de pantalla.
+- `ThemeProvider.js`: Proveedor de temas.
 
-#### Otros Archivos
+### hooks
+
+Hooks personalizados para manejar lógica específica.
+
+- `useAuth.js`: Hook para la autenticación.
+- `useModal.js`: Hook para manejar modales.
+- `useScreen.js`: Hook para manejar estados de pantalla.
+- `useTheme.js`: Hook para manejar temas.
+
+### model
+
+Definiciones de modelos de datos.
+
+- `ActivityTypes.js`: Tipos de actividad.
+- `activityDTO.js`: DTO para actividad.
+- `userDTO.js`: DTO para usuario.
+
+### pages
+
+Componentes de página para diferentes rutas.
+
+#### admin
+
+Páginas relacionadas con la administración.
+
+- components: Componentes específicos para las páginas de administración.
+
+#### auth
+
+Páginas relacionadas con la autenticación.
+
+- components: Componentes específicos para las páginas de autenticación.
+
+#### home
+
+Página de inicio.
+
+#### profile
+
+Páginas relacionadas con los perfiles de usuario.
+
+### scss
+
+Archivos SCSS para el estilado temático.
+
+- `_clear-theme.scss`: Estilos para el tema claro.
+- `_dark-theme.scss`: Estilos para el tema oscuro.
+- `_imports.scss`: Importaciones SCSS.
+
+### service
+
+Servicios para manejar la lógica de negocio y las interacciones con APIs.
+
+- `ProtectedRouterService.js`: Servicio para la protección de rutas.
+- `activityService.js`: Servicio para actividades.
+- `adminService.js`: Servicio para administración.
+- `authService.js`: Servicio para autenticación.
+- `imageService.js`: Servicio para manejo de imágenes.
+- `notificationService.js`: Servicio para notificaciones.
+- `userService.js`: Servicio para manejo de usuarios.
+
+## Otros Archivos
 
 - `index.js`: Punto de entrada principal de la aplicación.
 - `reportWebVitals.js`: Herramienta para medir el rendimiento de la aplicación.
 - `setupTests.js`: Configuración para pruebas unitarias.
+- `README.md`: Documentación detallada sobre la estructura y componentes de la aplicación.
 
 ## Enlace a la documentación de la APIREST:
 
