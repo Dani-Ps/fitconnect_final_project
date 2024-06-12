@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-
+import { useParams, useLocation } from 'react-router-dom';
 import { ThemeContext } from '../../contexts/ThemeProvider.js';
 import { useScreenContext } from '../../contexts/ScreenProvider.js';
 import { useAuthContext } from '../../contexts/AuthProvider.js';
@@ -7,25 +7,32 @@ import { useModalContext } from '../../contexts/ModalProvider.js';
 
 import Skeleton from '../../components/layout/skeleton/skeleton.jsx';
 import { Header } from '../../components/layout/header/header.jsx';
-import UserAgeChart from './components/chart/userAgeChart.jsx';
-import ActivityLineChart from './components/chart/activityLineChart.jsx';
+import ProfileHeader from '../../components/common/profile/profileHeader.jsx';
+import ProfileNav from '../../components/common/profile/nav.jsx';
+import ActivityGrid from '../../components/common/profile/activityGrid.jsx';
 import { FooterBarComponent, SidebarComponent } from '../../components/layout/navbar/navbar.jsx';
-import { ToggleButton } from './components/buttons/buttons.jsx';
+import FooterComponent from '../../components/layout/footer/footer.jsx';
+import { ToggleButton } from '../../components/common/buttons/buttons.jsx';
+import AddActivityForm from '../../components/common/addActivity/addActivityCard.jsx';
+import SearchModal from '../../components/common/search/searchModal.jsx';
 import { LogoiconDark } from '../../assest/icon/logo-dark';
 import { LogoiconClear } from '../../assest/icon/logo-clear';
 import { LogoutClear } from '../../assest/icon/sidebarIcons-clear.jsx';
 import { LogoutDark } from '../../assest/icon/sidebarIcons-dark.jsx';
-import SearchModal from '../../components/common/search/searchModal.jsx';
 
-import "./style.scss"
+import './style.scss';
 
-const DashboardPage = () => {
+const ProfilePage = () => {
     // CONTEXTS
-    const { isDark, theme } = useContext(ThemeContext);
+    const { isDark } = useContext(ThemeContext);
     const { screenWidth } = useScreenContext();
-    const { logout, userData, update } = useAuthContext();
+    const { logout, userData } = useAuthContext();
     const { isModalOpen } = useModalContext();
+    const isAddModalOpen = isModalOpen('addModal');
     const isSearchModalOpen = isModalOpen('searchModal');
+    const location = useLocation();
+
+    const user = location.state?.user;
 
     //#region SCREEN STATE
     const [isScreenSmall, setIsScreenSmall] = useState(false);
@@ -51,6 +58,7 @@ const DashboardPage = () => {
     const headerLeftContent = isDark ? <LogoiconDark {...svgLogoIconProps} /> : <LogoiconClear  {...svgLogoIconProps} />;
 
 
+
     if (isScreenSmall) {
         return (
             <Skeleton
@@ -65,18 +73,12 @@ const DashboardPage = () => {
                                 </>}
                         />
                         <div className="main-content">
-                            <div className='dashboard-container'>
-                                <div className='title' >
-                                    <h2 style={{ color: theme.gray12 }}>Dashboard</h2>
-                                </div>
-                                <div className='chart-container'>
-                                    <UserAgeChart />
-                                </div>
-                                <div className='chart-container'>
-                                    <ActivityLineChart />
-                                </div>
+                            <div className='profile-main-container'>
+                                <ProfileHeader user={user} />
+                                <ProfileNav />
+                                <ActivityGrid userId={user.id} token={userData.token} />
+                                {isAddModalOpen && <AddActivityForm />}
                                 {isSearchModalOpen && <SearchModal />}
-
                             </div>
                         </div>
                     </>
@@ -92,26 +94,18 @@ const DashboardPage = () => {
                 <>
                     <SidebarComponent />
                     <div className="main-content">
-                        <div className='dashboard-container'>
-                            <div className='title' >
-                                <h1 style={{ color: theme.gray12 }}>Dashboard</h1>
-                            </div>
-                            <div className='chart-container'>
-                                <UserAgeChart />
-
-                            </div>
-                            <div className='chart-container'>
-                                <ActivityLineChart />
-                            </div>
+                        <div className='profile-main-container'>
+                            <ProfileHeader user={user} />
+                            <ProfileNav />
+                            <ActivityGrid userId={user.id} token={userData.token} />
+                            {isAddModalOpen && <AddActivityForm />}
                             {isSearchModalOpen && <SearchModal />}
-
                         </div>
                     </div>
                 </>
             }
-            footerContent={<></>}
+            footerContent={<FooterComponent />}
         />
     );
 };
-
-export default DashboardPage
+export default ProfilePage;

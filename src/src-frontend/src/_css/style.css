@@ -1,100 +1,70 @@
-.modal {
+.profile-header-container {
+  padding: 10px;
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  min-width: 500px;
+}
+.profile-header-container .picturne-name-container {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
   align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
+}
+.profile-header-container .picturne-name-container .name-container {
+  margin-left: 10px;
+}
+.profile-header-container .picturne-name-container .name-container h2 {
+  margin: 0;
+}
+.profile-header-container .friends-count {
+  display: flex;
+  width: 20%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.profile-header-container .friends-count h3 {
+  margin: 0;
+}
+
+.profile-nav {
+  width: 80%;
+  height: auto;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  align-items: center;
+  padding: 8px;
+}
+
+.activity-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 200px);
+  gap: 10px;
+}
+
+.activity-item {
+  width: 100%;
+  height: 200px;
+  /* Establece la altura deseada para cada celda */
+  overflow: hidden;
+}
+
+.image-container {
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(5px);
 }
-.modal .modal-content {
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  max-width: 500px;
+
+.image-container img {
   width: 100%;
-  text-align: center;
-  position: relative;
+  height: 100%;
+  object-fit: cover;
 }
-.modal .modal-content .close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 24px;
-  cursor: pointer;
-}
-.modal .modal-content h2 {
-  margin-bottom: 20px;
-  font-size: 1.5em;
-  color: #333;
-}
-.modal .modal-content input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-}
-.modal .modal-content .user-list {
-  list-style: none;
-  padding: 0;
-  max-height: 200px;
-  overflow-y: auto;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  /* Estilos para la barra de scroll */
-}
-.modal .modal-content .user-list .user-list-item {
+
+.modal-buttons {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  border-bottom: 1px solid #eee;
-}
-.modal .modal-content .user-list .user-list-item:last-child {
-  border-bottom: none;
-}
-.modal .modal-content .user-list .user-list-item span {
-  font-size: 16px;
-  color: #333;
-}
-.modal .modal-content .user-list .user-list-item .buttons button {
-  margin-left: 10px;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-}
-.modal .modal-content .user-list .user-list-item .buttons button:first-of-type {
-  background-color: #28a745;
-  color: white;
-}
-.modal .modal-content .user-list .user-list-item .buttons button:last-of-type {
-  background-color: #007bff;
-  color: white;
-}
-
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
 }/*# sourceMappingURL=style.css.map */
