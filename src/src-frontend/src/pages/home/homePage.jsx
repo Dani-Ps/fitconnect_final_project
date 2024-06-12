@@ -10,13 +10,14 @@ import { Header } from '../../components/layout/header/header.jsx';
 import { FooterBarComponent, SidebarComponent } from '../../components/layout/navbar/navbar.jsx';
 import ActivityPostComponent from '../../components/common/activity/activityPost.jsx';
 import FooterComponent from '../../components/layout/footer/footer.jsx';
-import { ToggleButton } from './components/buttons/buttons.jsx';
+import { ToggleButton } from '../../components/common/buttons/buttons.jsx';
 import AddActivityForm from '../../components/common/addActivity/addActivityCard.jsx';
 import SearchModal from '../../components/common/search/searchModal.jsx';
 import { LogoiconDark } from '../../assest/icon/logo-dark';
 import { LogoiconClear } from '../../assest/icon/logo-clear';
 import { LogoutClear } from '../../assest/icon/sidebarIcons-clear.jsx';
 import { LogoutDark } from '../../assest/icon/sidebarIcons-dark.jsx';
+
 const HomePage = () => {
     // CONTEXTS
     const { isDark } = useContext(ThemeContext);
