@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.NoHandlerFoundException;
@@ -26,6 +27,7 @@ import com.fitconnet.dto.entities.UserDTO;
 import com.fitconnet.dto.response.ErrorDetailsDTO;
 import com.fitconnet.enums.Role;
 import com.fitconnet.error.GlobalExceptionHandler;
+import com.fitconnet.error.exception.user.UserNotFoundException;
 import com.fitconnet.service.interfaces.entity.ProcessingResponseI;
 import com.fitconnet.service.interfaces.entity.UserServiceI;
 import com.fitconnet.utils.Constants;
@@ -83,6 +85,33 @@ public class UserController {
 					userService.create(user);
 					return ResponseEntity.ok().body("User: " + user.getName() + ", created successfully.");
 				});
+	}
+
+	/**
+	 * Adds a friend to a user.
+	 * 
+	 * <p>
+	 * Adds a friend to the user with the specified ID.
+	 * </p>
+	 * 
+	 * @param userId   The ID of the user to whom the friend will be added.
+	 * @param friendId The ID of the friend to be added.
+	 * @return ResponseEntity<String> The response entity indicating the success or
+	 *         failure of adding the friend.
+	 */
+	@PostMapping("/addFriend/{friendId}")
+	@Operation(summary = "Add Friend", description = "Adds a friend to a user.")
+	@ApiResponse(responseCode = "200", description = "Friend added successfully")
+	public ResponseEntity<String> addFriend(@PathVariable Long friendId, @RequestParam Long userId) {
+		logger.info("UserController :: addFriend");
+		ResponseEntity<String> response = null;
+		try {
+			String result = userService.addFriend(userId, friendId);
+			response = ResponseEntity.ok().body(result);
+		} catch (UserNotFoundException e) {
+			response = ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+		}
+		return response;
 	}
 
 	/**
