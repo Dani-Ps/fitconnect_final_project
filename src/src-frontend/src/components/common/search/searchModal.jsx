@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuthContext } from '../../../contexts/AuthProvider';
-import { fetchAllUsers } from '../../../service/userService';
+import { fetchAllUsers, addFriend } from '../../../service/userService';
 import { useModalContext } from '../../../contexts/ModalProvider';
 import './style.scss';
 
@@ -11,8 +11,7 @@ const SearchModal = () => {
     const [allUsers, setAllUsers] = useState([]);
     const { closeModal } = useModalContext();
     const token = userData?.token;
-
-
+    const userId = userData?.user?.id
 
     const fetchUsers = async () => {
         try {
@@ -46,12 +45,16 @@ const SearchModal = () => {
             setSearchResults(filteredUsers);
         }
     };
-    const handleAdd = (userId) => {
-        console.log("Usuario agregado:", userId);
+    const handleAdd = async (friendId) => {
+        try {
+            await addFriend(token, userId, friendId);
+            console.log('Friend successfully added');
+        } catch (error) {
+            console.error('Error adding friend:', error.message);
+        }
     };
-
-    const handleView = (userId) => {
-        console.log("Ver detalles del usuario:", userId);
+    const handleView = (friendId) => {
+        console.log("See user details:", userId);
     };
 
     const handleCloseModal = () => {
@@ -70,12 +73,12 @@ const SearchModal = () => {
                 />
                 {searchResults.length > 0 && (
                     <ul className="user-list">
-                        {searchResults.slice(0, 5).map(user => (
-                            <li key={user.id} className="user-list-item">
-                                <span>{user.name}</span>
+                        {searchResults.slice(0, 5).map(friend => (
+                            <li key={friend.id} className="user-list-item">
+                                <span>{friend.name}</span>
                                 <div className="buttons">
-                                    <button onClick={() => handleAdd(user.id)}>Añadir</button>
-                                    <button onClick={() => handleView(user.id)}>Ver</button>
+                                    <button onClick={() => handleAdd(friend.id)}>Add</button>
+                                    <button onClick={() => handleView(friend.id)}>See</button>
                                 </div>
                             </li>
                         ))}
@@ -84,7 +87,6 @@ const SearchModal = () => {
             </div>
         </div>
     );
-
 };
 
 export default SearchModal;

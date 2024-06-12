@@ -20,7 +20,7 @@ const EditUserModal = ({ user, onUpdate, onClose, token }) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            await patchActivity(token, userData.id, userData);
+            await updateUser(token, userData.id, userData);
             onUpdate(userData);
             onClose();
         } catch (error) {
