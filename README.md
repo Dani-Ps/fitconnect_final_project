@@ -694,8 +694,9 @@ Antes de comenzar, asegúrate de tener instalados los siguientes componentes en 
 1. **Node**: Puedes descargarlo e instalarlo desde [nodejs.org](https://nodejs.org/).
 2. **Git**: Puedes descargarlo e instalarlo desde [git-scm.com](https://git-scm.com/).
 3. **Java 21**: Puedes descargarlo e instalarlo desde [oracle.com](https://www.oracle.com/java/technologies/javase-jdk21-downloads.html).
-4. **Docker**: Puedes descargarlo e instalarlo desde [docker.com](https://www.docker.com/).
-5. **Docker Compose**: Normalmente se incluye con Docker Desktop, pero puedes verificar la instalación ejecutando `docker-compose --version`.
+4. Maven: Puedes descargarlo e instalarlo desde [maven.apache.org](maven.apache.org).
+5. **Docker**: Puedes descargarlo e instalarlo desde [docker.com](https://www.docker.com/).
+6. **Docker Compose**: Normalmente se incluye con Docker Desktop, pero puedes verificar la instalación ejecutando `docker-compose --version`.
 
 ## Estructura del Proyecto
 
@@ -770,7 +771,7 @@ Antes de ejecutar el siguiente comando para construir y desplegar los servicios 
 
 ### Paso 1: Construir el Backend
 
-En el directorio `fitconnect_final_project/src/src-api`, ejecuta Maven para limpiar y construir la API:
+En el directorio `fitconnect_final_project/src/src-api`, ejecuta mvn clean install para crear el .jar:
 
 ```sh
 cd fitconnect_final_project/src/src-api
