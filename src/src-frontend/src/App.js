@@ -14,6 +14,7 @@ import UserTable from './components/common/table/userTable.jsx';
 import AuthPage from './pages/auth/authPage.jsx';
 import UsersPage from './pages/admin/userPage.jsx';
 import ActivitiesPage from './pages/admin/activitiesPage.jsx';
+import PruebasPage from './pages/pruebasPage.jsx';
 import "@fontsource/roboto";
 import './app.scss'
 
@@ -65,7 +66,7 @@ function App() {
             </>
           )}
         </Route>
-
+        <Route path="/pruebas" element={<PruebasPage />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
