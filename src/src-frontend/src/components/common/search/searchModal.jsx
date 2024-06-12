@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { useAuthContext } from '../../../contexts/AuthProvider';
 import { fetchAllUsers, addFriend } from '../../../service/userService';
 import { useModalContext } from '../../../contexts/ModalProvider';
 import './style.scss';
 
 const SearchModal = () => {
+    const navigate = useNavigate();
     const { userData } = useAuthContext();
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
@@ -53,8 +56,10 @@ const SearchModal = () => {
             console.error('Error adding friend:', error.message);
         }
     };
-    const handleView = (friendId) => {
-        console.log("See user details:", userId);
+    const handleView = (friend) => {
+        const profileURL = `/${friend.name}`;
+        navigate(profileURL, { state: { user: friend } })
+        handleCloseModal();
     };
 
     const handleCloseModal = () => {
@@ -78,7 +83,7 @@ const SearchModal = () => {
                                 <span>{friend.name}</span>
                                 <div className="buttons">
                                     <button onClick={() => handleAdd(friend.id)}>Add</button>
-                                    <button onClick={() => handleView(friend.id)}>See</button>
+                                    <button onClick={() => handleView(friend)}>See</button>
                                 </div>
                             </li>
                         ))}
