@@ -113,7 +113,7 @@ const SidebarComponent = ({ }) => {
     const handleLogoutClick = async () => {
         try {
             await logout();
-            window.location.href = '/login';
+            window.location.href = '/';
         } catch (error) {
             console.error('Error during logout:', error);
         }
@@ -152,7 +152,7 @@ const SidebarComponent = ({ }) => {
                 handleOpenModal('addModal');
                 break;
             case 'Profile':
-                const profileURL = `/${userData.user.name}`;
+                const profileURL = `/${userData.user.name.toLowerCase()}`;
                 navigate(profileURL, { state: { user: userData.user } })
                 break;
             case 'Logout':
@@ -166,7 +166,8 @@ const SidebarComponent = ({ }) => {
 
     if (isScreenSmall) {
         return (
-            <div className="sidebar-container" style={{ borderColor: theme.gray8, background: theme.colorBackground }}>
+
+            <div className="sidebar-container " style={{ borderColor: theme.gray8, background: theme.colorBackground }}>
                 <div className='logo-container'>
                     <Link to="/home">
                         {isDark ? <LogoiconDark {...svgLogoIconProps} /> : <LogoiconClear {...svgLogoIconProps} />}
@@ -195,7 +196,7 @@ const SidebarComponent = ({ }) => {
         );
     }
     return (
-        <div className="sidebar-container" style={{ borderColor: theme.gray8 }}>
+        <div className="sidebar-container" style={{ borderColor: theme.gray8, background: theme.colorBackground }}>
             <div className='logo-container'>
                 <Link to="/home">
                     {isDark ? <LogotextDark {...svgLogoTextProps} /> : <LogotextClear {...svgLogoTextProps} />}
@@ -205,7 +206,7 @@ const SidebarComponent = ({ }) => {
                 {Object.keys(icons).map((key) => {
                     const IconComponent = icons[key];
                     return (
-                        <div className='icon-wrapper' key={key} style={{ borderColor: theme.gray8, backgroundColor: theme.grayA2 }}>
+                        <div className='icon-wrapper' key={key} style={{ borderColor: theme.gray8 }}>
                             <div className='icon-btn' onClick={() => handleIconClick(key)}>
                                 <IconComponent />
                             </div>
@@ -213,7 +214,7 @@ const SidebarComponent = ({ }) => {
                         </div>
                     );
                 })}
-                <div className='icon-wrapper' style={{ borderColor: theme.gray8, backgroundColor: theme.grayA2 }}>
+                <div className='icon-wrapper' style={{ borderColor: theme.gray8 }}>
                     <div className='icon-btn' onClick={() => handleIconClick('Profile')}><ProfilePictureComponent source={profileImage} size={35} /></div>
                     <div className='icon-text' style={{ color: theme.gray11 }}>{userData?.user?.name}</div>
                 </div>

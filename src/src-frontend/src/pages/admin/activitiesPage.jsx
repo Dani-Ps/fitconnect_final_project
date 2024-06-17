@@ -23,7 +23,7 @@ const ActivitiesPage = () => {
     // CONTEXTS
     const { isDark, theme } = useContext(ThemeContext);
     const { screenWidth } = useScreenContext();
-    const { logout, userData, update } = useAuthContext();
+    const { logout } = useAuthContext();
     const { isModalOpen } = useModalContext();
     const isSearchModalOpen = isModalOpen('searchModal');
 
@@ -64,7 +64,7 @@ const ActivitiesPage = () => {
                                     <div className='icon-btn' onClick={handleLogoutClick}>{Logout}</div>
                                 </>}
                         />
-                        <div className="main-content">
+                        <div className="dashboard-container">
                             <div className='title' >
                                 <h2 style={{ color: theme.gray12 }}>Activity Managment</h2>
                             </div>
@@ -85,12 +85,14 @@ const ActivitiesPage = () => {
         <Skeleton
             mainContent={
                 <>
-                    <SidebarComponent />
-                    <div className="main-content">
+                    <div className='left-column'>
+                        <SidebarComponent />
+                    </div>
+                    <div className='right-column table-container'>
                         <div className='title' >
                             <h1 style={{ color: theme.gray12 }}>Activity Managment</h1>
                         </div>
-                        <div className='table-container'>
+                        <div className='table-content'>
                             <ActivityTable />
                         </div>
                         {isSearchModalOpen && <SearchModal />}

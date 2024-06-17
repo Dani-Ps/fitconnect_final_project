@@ -96,7 +96,7 @@ const AuthPage = () => {
     return (
         <Skeleton
             mainContent={
-                <>
+                <div className='auth-page'>
                     <Header
                         leftContent={leftContent.logoIcon}
                         rightContent={
@@ -107,10 +107,10 @@ const AuthPage = () => {
                             </>
                         } />
                     {pathname === '/login' ? <LoginForm /> : <SignupForm />}
-
-                </>
+                    <FooterComponent />
+                </div>
             }
-            footerContent={<FooterComponent />}
+            footerContent={<></>}
             currentPath={location.pathname}
         />
     );

@@ -1,11 +1,14 @@
+//HEADER
+
 .profile-header-container {
     padding: 10px;
     display: flex;
     flex-direction: row;
-    min-width: 500px;
+    margin: auto;
+    margin-top: 100px;
+    margin-bottom: 20px;
 
     .picturne-name-container {
-        width: 80%;
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
@@ -33,8 +36,8 @@
     }
 }
 
+// NAV
 .profile-nav {
-    width: 80%;
     height: auto;
     margin: 0 auto;
     display: flex;
@@ -43,33 +46,137 @@
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     align-items: center;
     padding: 8px;
+    margin-bottom: 20px;
+
 }
 
+// GRID
 .activity-grid {
     display: grid;
     grid-template-columns: repeat(3, 200px);
-    gap: 10px;
+    gap: 20px;
+    justify-content: space-evenly;
+    width: fit-content;
+
+    .activity-item {
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .image-container {
+        width: 100%;
+        height: 100%;
+    }
+
+    .image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
 }
 
-.activity-item {
-    width: 100%;
-    height: 200px;
-    /* Establece la altura deseada para cada celda */
-    overflow: hidden;
-}
+// ACTIVITY DETAILS
 
-.image-container {
-    width: 100%;
-    height: 100%;
-}
-
-.image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.modal-buttons {
+.activity-modal {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+
+    .activity-modal-content {
+        border: none;
+        max-width: 500px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        border-radius: 5px;
+
+        span {
+            cursor: pointer;
+        }
+
+        .activity-modal-buttons {
+            display: flex;
+            justify-content: space-evenly;
+
+            button {
+                border-radius: 10px;
+                border: 1px solid;
+            }
+        }
+    }
+
+    .activity-details-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+        width: 80%;
+
+        .publication {
+            border-bottom: 1px solid #8E8E8E;
+            margin-bottom: 20px;
+            max-width: 350px;
+            width: 100%;
+
+            .publication-header {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                padding: 5px;
+
+                .picture-name-container {
+                    width: 95%;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+
+                    .creator-name {
+                        padding-left: 10px;
+                        text-decoration: none;
+                    }
+                }
+
+                .menu-container {
+                    width: 5%;
+                }
+            }
+
+            .img-container {
+                width: 100%;
+                overflow: hidden;
+
+                img {
+                    width: 100%;
+                    height: auto;
+                    display: block;
+                }
+            }
+
+            .activity-details {
+
+                #title {
+                    font-weight: 900;
+                    text-align: center;
+                }
+
+                p>span {
+                    margin-left: 10px;
+                }
+            }
+
+        }
+    }
 }

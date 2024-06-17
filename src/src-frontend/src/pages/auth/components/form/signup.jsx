@@ -174,7 +174,7 @@ const SignupForm = () => {
                     window.sessionStorage.setItem("Role", result.userDTO.roles);
                     window.sessionStorage.setItem("isAuht", true);
 
-                    window.location.href = "/home";
+                    window.location.href = "/";
 
                 }
             } catch (error) {
@@ -186,7 +186,7 @@ const SignupForm = () => {
 
     //#region HTML
     return (
-        <div className='main-container'>
+        <div className='auth-container'>
             <form onSubmit={handleSubmit} className="signup-container" style={{ borderColor: theme.gray7, borderWidth: '1px', borderStyle: 'solid' }}>
                 <h1 style={{ color: theme.grayA12 }}>Welcome to <span style={{ color: theme.tealA11 }}>FitConnet</span></h1>
                 <section className='error-container'>

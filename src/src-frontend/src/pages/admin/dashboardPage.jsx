@@ -23,7 +23,7 @@ const DashboardPage = () => {
     // CONTEXTS
     const { isDark, theme } = useContext(ThemeContext);
     const { screenWidth } = useScreenContext();
-    const { logout, userData, update } = useAuthContext();
+    const { logout } = useAuthContext();
     const { isModalOpen } = useModalContext();
     const isSearchModalOpen = isModalOpen('searchModal');
 
@@ -64,20 +64,18 @@ const DashboardPage = () => {
                                     <div className='icon-btn' onClick={handleLogoutClick}>{Logout}</div>
                                 </>}
                         />
-                        <div className="main-content">
-                            <div className='dashboard-container'>
-                                <div className='title' >
-                                    <h2 style={{ color: theme.gray12 }}>Dashboard</h2>
-                                </div>
-                                <div className='chart-container'>
-                                    <UserAgeChart />
-                                </div>
-                                <div className='chart-container'>
-                                    <ActivityLineChart />
-                                </div>
-                                {isSearchModalOpen && <SearchModal />}
-
+                        <div className='dashboard-container'>
+                            <div className='title' >
+                                <h2 style={{ color: theme.gray12 }}>Dashboard</h2>
                             </div>
+                            <div className='chart-container'>
+                                <UserAgeChart />
+                            </div>
+                            <div className='chart-container'>
+                                <ActivityLineChart />
+                            </div>
+                            {isSearchModalOpen && <SearchModal />}
+
                         </div>
                     </>
                 }
@@ -90,22 +88,20 @@ const DashboardPage = () => {
         <Skeleton
             mainContent={
                 <>
-                    <SidebarComponent />
-                    <div className="main-content">
-                        <div className='dashboard-container'>
-                            <div className='title' >
-                                <h1 style={{ color: theme.gray12 }}>Dashboard</h1>
-                            </div>
-                            <div className='chart-container'>
-                                <UserAgeChart />
-
-                            </div>
-                            <div className='chart-container'>
-                                <ActivityLineChart />
-                            </div>
-                            {isSearchModalOpen && <SearchModal />}
-
+                    <div className='left-column'>
+                        <SidebarComponent />
+                    </div>
+                    <div className='right-column dashboard-container'>
+                        <div className='title' >
+                            <h1 style={{ color: theme.gray12 }}>Dashboard</h1>
                         </div>
+                        <div className='chart-container'>
+                            <UserAgeChart />
+                        </div>
+                        <div className='chart-container'>
+                            <ActivityLineChart />
+                        </div>
+                        {isSearchModalOpen && <SearchModal />}
                     </div>
                 </>
             }

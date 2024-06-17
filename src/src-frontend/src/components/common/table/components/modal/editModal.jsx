@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { ThemeContext } from '../../../../../contexts/ThemeProvider';
 import { updateUser } from '../../../../../service/adminService';
 import { patchActivity } from '../../../../../service/activityService';
 import './style.scss';
 const EditUserModal = ({ user, onUpdate, onClose, token }) => {
+    const { theme } = useContext(ThemeContext);
     const [userData, setUserData] = useState(user);
 
     useEffect(() => {
@@ -30,17 +32,17 @@ const EditUserModal = ({ user, onUpdate, onClose, token }) => {
 
     return (
         <div className="modal">
-            <div className="modal-content">
-                <span className="close" onClick={onClose}>&times;</span>
-                <h2>Edit User</h2>
-                <form onSubmit={handleSubmit}>
+            <div className="modal-content " style={{ background: theme.backgroundGradient, color: theme.gray12, borderColor: theme.gray7 }}>
+                <span className="close" onClick={onClose} style={{ fontSize: '24px', color: theme.gray12 }}>&times;</span>
+                <h2 style={{ color: theme.teal11 }}>Edit User</h2>
+                <form onSubmit={handleSubmit} className='modal-form'>
                     <label htmlFor="name">Name:</label>
-                    <input type="text" id="name" name="name" value={userData.name} onChange={handleChange} required />
+                    <input type="text" id="name" name="name" value={userData.name} onChange={handleChange} required style={{ borderColor: theme.gray10, color: theme.gray12 }} />
                     <label htmlFor="age">Age:</label>
-                    <input type="number" id="age" name="age" value={userData.age} onChange={handleChange} required />
+                    <input type="number" id="age" name="age" value={userData.age} onChange={handleChange} required style={{ borderColor: theme.gray10, color: theme.gray12 }} />
                     <label htmlFor="email">Email:</label>
-                    <input type="email" id="email" name="email" value={userData.email} onChange={handleChange} required />
-                    <button type="submit">Update</button>
+                    <input type="email" id="email" name="email" value={userData.email} onChange={handleChange} required style={{ borderColor: theme.gray10, color: theme.gray12 }} />
+                    <button type="submit" style={{ backgroundColor: theme.teal12, color: theme.gray1 }}>Update</button>
                 </form>
             </div>
         </div>
@@ -48,6 +50,7 @@ const EditUserModal = ({ user, onUpdate, onClose, token }) => {
 };
 
 const EditActivityModal = ({ activity, onUpdate, onClose, token }) => {
+    const { theme } = useContext(ThemeContext);
     const [activityData, setActivityData] = useState(activity);
 
     useEffect(() => {
@@ -74,19 +77,19 @@ const EditActivityModal = ({ activity, onUpdate, onClose, token }) => {
 
     return (
         <div className="modal">
-            <div className="modal-content">
-                <span className="close" onClick={onClose}>&times;</span>
-                <h2>Edit Activity</h2>
-                <form onSubmit={handleSubmit}>
-                    <label htmlFor="title">Title:</label> {/* Ajuste aquí */}
-                    <input type="text" id="title" name="title" value={activityData.title} onChange={handleChange} required /> {/* Ajuste aquí */}
-                    <label htmlFor="type">Type:</label> {/* Ajuste aquí */}
-                    <input type="text" id="type" name="type" value={activityData.type} onChange={handleChange} required /> {/* Ajuste aquí */}
-                    <label htmlFor="duration">Duration:</label> {/* Ajuste aquí */}
-                    <input type="text" id="duration" name="duration" value={activityData.duration} onChange={handleChange} required /> {/* Ajuste aquí */}
-                    <label htmlFor="place">Place:</label> {/* Ajuste aquí */}
-                    <input type="text" id="place" name="place" value={activityData.place} onChange={handleChange} required /> {/* Ajuste aquí */}
-                    <button type="submit">Update</button>
+            <div className="modal-content " style={{ background: theme.backgroundGradient, color: theme.gray12, borderColor: theme.gray7 }}>
+                <span className="close" onClick={onClose} style={{ fontSize: '24px', color: theme.gray12 }}>&times;</span>
+                <h2 style={{ color: theme.teal11 }}>Edit Activity</h2>
+                <form onSubmit={handleSubmit} className='modal-form'>
+                    <label htmlFor="title">Title:</label>
+                    <input type="text" id="title" name="title" value={activityData.title} onChange={handleChange} required style={{ borderColor: theme.gray10, color: theme.gray12 }} />
+                    <label htmlFor="type">Type:</label>
+                    <input type="text" id="type" name="type" value={activityData.type} onChange={handleChange} required style={{ borderColor: theme.gray10, color: theme.gray12 }} />
+                    <label htmlFor="duration">Duration:</label>
+                    <input type="text" id="duration" name="duration" value={activityData.duration} onChange={handleChange} required style={{ borderColor: theme.gray10, color: theme.gray12 }} />
+                    <label htmlFor="place">Place:</label>
+                    <input type="text" id="place" name="place" value={activityData.place} onChange={handleChange} required style={{ borderColor: theme.gray10, color: theme.gray12 }} />
+                    <button type="submit" style={{ backgroundColor: theme.teal12, color: theme.gray1 }}>Update</button>
                 </form>
             </div>
         </div>

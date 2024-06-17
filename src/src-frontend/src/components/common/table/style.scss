@@ -1,32 +1,73 @@
-// userTable.scss
+z.role-filter {
+    padding: 5px;
+}
+
+.stylish-select {
+    border: 1px solid;
+    border-radius: 4px;
+    padding: 8px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+
+.stylish-select option {
+    padding: 10px;
+}
+
+.stylish-select:focus option {
+    background-color: var(--gray-a1);
+}
+
+.table-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
+    height: 100%;
+}
+
 table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
 
     th,
     td {
-        border: 1px solid #ddd;
-        padding: 8px;
+        padding: 10px;
         text-align: left;
+
+        &:hover {
+            border-radius: 10px;
+            background-color: var(--gray-a2);
+        }
     }
 
-    th {
-        background-color: #f2f2f2;
+}
+
+.table-button {
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+    border: 1px solid;
+    border-radius: 10px;
+
+    &:disabled {
+        cursor: not-allowed;
     }
 }
 
+
 button {
-    background-color: #007bff;
-    color: white;
     padding: 8px 16px;
     border: none;
     cursor: pointer;
     margin-right: 8px;
 
-    &:disabled {
-        background-color: #999;
-        cursor: not-allowed;
-    }
+
 }
 
 .pagination {
@@ -36,18 +77,25 @@ button {
 .pagination button {
     margin-right: 5px;
     padding: 5px 10px;
-    border: 1px solid #ccc;
-    background-color: #b1b1b1d9;
+    border-radius: 5px;
+    border: 1px solid;
     cursor: pointer;
-    color: black;
+    background-color: transparent;
+
+    &:hover {
+        background-color: var(--gray-a2);
+    }
 }
 
 .pagination button.active {
-    background-color: #007bff;
-    color: #fff;
-    border-color: #007bff;
+    background-color: var(--teal-a3);
+    border-color: var(--teal-a3);
 }
 
 a {
     text-decoration: none;
+}
+
+.page-dots {
+    margin-right: 5px;
 }

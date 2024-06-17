@@ -38,7 +38,9 @@ const ActivityPostComponent = () => {
                 console.error('Error fetching activities:', error);
             }
         };
-
+        if (userData && token) {
+            fetchActivities();
+        }
         fetchActivities();
     }, [userData, token]);
 

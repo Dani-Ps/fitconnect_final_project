@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Navigate } from 'react-router-dom';
 
 import { useAuthContext } from '../../../contexts/AuthProvider';
 import { ThemeContext } from '../../../contexts/ThemeProvider';
@@ -15,7 +14,7 @@ const Roles = {
 };
 
 const UserTable = () => {
-    const { isDark, theme } = useContext(ThemeContext);
+    const { theme } = useContext(ThemeContext);
     const [users, setUsers] = useState([]);
     const [filteredUsers, setFilteredUsers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -63,6 +62,7 @@ const UserTable = () => {
             setFilteredUsers(filtered.slice(0, usersPerPage));
         }
     };
+
     const goToPage = (pageNumber) => {
         setCurrentPage(pageNumber);
         const startIndex = (pageNumber - 1) * usersPerPage;
@@ -119,61 +119,90 @@ const UserTable = () => {
         setUserToDelete(null);
         setUserToEdit(null);
     };
+
     const showDetails = (user) => {
         return (window.location.href = `/userDetails/${user.name}`);
     };
 
+    const renderPagination = () => {
+        const maxButtons = 10;
+        const startPage = Math.max(currentPage - Math.floor(maxButtons / 2), 1);
+        const endPage = Math.min(startPage + maxButtons - 1, totalPages);
+
+        const pages = [];
+        for (let i = startPage; i <= endPage; i++) {
+            pages.push(i);
+        }
+
+        return (
+            <div className="pagination">
+                {startPage > 1 && (
+                    <>
+                        <button onClick={() => goToPage(1)} style={{ color: theme.teal12 }}>1</button>
+                        {startPage > 2 && <span style={{ color: theme.teal12 }} className='page-dots'>...</span>}
+                    </>
+                )}
+                {pages.map(page => (
+                    <button
+                        key={page}
+                        onClick={() => goToPage(page)}
+                        className={currentPage === page ? 'active' : ''}
+                        style={{ color: theme.teal12 }}
+                    >
+                        {page}
+                    </button>
+                ))}
+                {endPage < totalPages && (
+                    <>
+                        {endPage < totalPages - 1 && <span style={{ color: theme.teal12 }} className='page-dots'>...</span>}
+                        <button onClick={() => goToPage(totalPages)} style={{ color: theme.teal12 }}>{totalPages}</button>
+                    </>
+                )}
+            </div>
+        );
+    };
+
     return (
-        <div>
-            <div>
-                <label htmlFor="roleSelector">Filter by role: </label>
-                <select id="roleSelector" value={selectedRole} onChange={handleRoleChange}>
-                    <option value="ALL">All</option>
-                    <option value={Roles.ROLE_USER}>User</option>
-                    <option value={Roles.ROLE_ADMIN}>Admin</option>
+        <>
+            <div className='role-filter'>
+                <label htmlFor="roleSelector" style={{ color: theme.gray12 }} className='stylish-label'>Filter by role: </label>
+                <select id="roleSelector" value={selectedRole} onChange={handleRoleChange} className='stylish-select' style={{ background: theme.grayA2, color: theme.gray12 }}>
+                    <option value="ALL" style={{ background: theme.gray2 }}>All</option>
+                    <option value={Roles.ROLE_USER} style={{ background: theme.gray2 }}>User</option>
+                    <option value={Roles.ROLE_ADMIN} style={{ background: theme.gray2 }}>Admin</option>
                 </select>
             </div>
-            <table style={{ background: theme.grayA4 }}>
-                <thead>
+            <table style={{ borderColor: theme.teal6 }}>
+                <thead style={{ background: theme.tealA3, color: theme.teal12 }}>
                     <tr>
-                        <th style={{ background: theme.tealA12 }}>Name</th>
+                        <th>Name</th>
                         <th>Age</th>
                         <th>Email</th>
-                        <th id='more-link'>Details</th>
+                        <th>Details</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody style={{ background: theme.grayA2, color: theme.gray12 }}>
                     {filteredUsers && filteredUsers.map((user) => (
                         <tr key={user.id}>
                             <td>{user.name}</td>
                             <td>{user.age}</td>
                             <td>{user.email}</td>
                             <td>
-                                <button onClick={() => showDetails(user)}>👁️</button>
+                                <button onClick={() => showDetails(user)} className='table-button' style={{ borderColor: theme.teal4, backgroundColor: theme.teal4, color: theme.teal12 }}>👁️</button>
                             </td>
                             <td>
-                                <button onClick={() => handleEdit(user)}>Edit</button>
+                                <button onClick={() => handleEdit(user)} className='table-button' style={{ borderColor: theme.teal4, backgroundColor: theme.teal4, color: theme.teal12 }}>Edit</button>
                                 <button onClick={() => {
                                     setUserToDelete(user);
                                     setShowDeleteModal(true);
-                                }}>Delete</button>
+                                }} className='table-button' style={{ borderColor: theme.teal4, backgroundColor: theme.teal4, color: theme.teal12 }}>Delete</button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-            <div className="pagination">
-                {Array.from({ length: totalPages }, (_, index) => (
-                    <button
-                        key={index + 1}
-                        onClick={() => goToPage(index + 1)}
-                        className={currentPage === index + 1 ? 'active' : ''}
-                    >
-                        {index + 1}
-                    </button>
-                ))}
-            </div>
+            {renderPagination()}
 
             {showDeleteModal && (
                 <DeleteUserModal
@@ -194,7 +223,7 @@ const UserTable = () => {
                     token={token}
                 />
             )}
-        </div>
+        </>
     );
 };
 

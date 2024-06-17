@@ -1,13 +1,7 @@
 .sidebar-container {
     width: fit-content;
     height: 100dvh;
-    display: flex;
-    flex-direction: column;
     padding: 16px;
-    position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
     border-right: 1px solid;
     border-radius: 5px;
 
@@ -35,10 +29,8 @@
         margin-top: 8px;
 
         &:hover {
-            border: 1px solid;
             border-radius: 10px;
             background-color: var(--gray-a2);
-
         }
 
     }
