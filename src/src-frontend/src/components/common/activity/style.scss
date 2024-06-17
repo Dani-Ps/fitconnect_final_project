@@ -65,9 +65,11 @@
 
 @media (max-width: 770px) {
     .publication-container {
-        margin-top: 70px;
-        margin-bottom: 100px;
-
+        margin-top: 50px;
+        margin-bottom: 50px;
+        align-self: center;
+        margin-right: auto;
+        margin-left: auto;
         .publication {
             .img-container {
                 img {
@@ -83,8 +85,8 @@
 
 @media (max-width: 600px) {
     .publication-container {
-        margin-top: 70px;
-        margin-bottom: 100px;
+        margin-top: 50px;
+        margin-bottom: 50px;
 
         .publication {
             .img-container {
@@ -102,8 +104,8 @@
 
 @media (max-width: 768px) {
     .publication-container {
-        margin-top: 70px;
-        margin-bottom: 100px;
+        margin-top: 50px;
+        margin-bottom: 50px;
 
         .publication {
             .icon {
@@ -116,8 +118,8 @@
 
 @media (max-width: 480px) {
     .publication-container {
-        margin-top: 70px;
-        margin-bottom: 100px;
+        margin-top: 50px;
+        margin-bottom: 50px;
 
         .publication {
             .icon {

@@ -71,15 +71,11 @@ const ProfilePage = () => {
                                     <div className='icon-btn' onClick={handleLogoutClick}>{Logout}</div>
                                 </>}
                         />
-                        <div className="right-column">
-                            <div className='profile-page'>
-                                <ProfileHeader user={user} />
-                                <ProfileNav />
-                                <ActivityGrid userId={user?.id} token={userData?.token} />
-                                {isAddModalOpen && <AddActivityForm />}
-                                {isSearchModalOpen && <SearchModal />}
-                            </div>
-                        </div>
+                        <ProfileHeader user={user} />
+                        <ProfileNav />
+                        <ActivityGrid userId={user?.id} token={userData?.token} />
+                        {isAddModalOpen && <AddActivityForm />}
+                        {isSearchModalOpen && <SearchModal />}
                         <FooterBarComponent />
                     </>
                 }
