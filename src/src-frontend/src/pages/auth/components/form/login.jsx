@@ -127,7 +127,7 @@ const LoginForm = () => {
 
     //#region  HTML
     return (
-        <div className='main-container'>
+        <div className='auth-container'>
             <h1 style={{ color: theme.grayA12 }}>Welcome back to <span style={{ color: theme.tealA12 }}>FitConnet</span></h1>
             <form onSubmit={handleSubmit} className="login-container" style={{ borderColor: theme.gray7, borderWidth: '1px', borderStyle: 'solid' }}>
                 <div className="input-container">

@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { ThemeContext } from '../../../../../contexts/ThemeProvider';
 import './style.scss';
 
 const TimeInput = ({ onHourChange, onMinuteChange }) => {
     const [hours, setHours] = useState('');
     const [minutes, setMinutes] = useState('');
+    const { theme } = useContext(ThemeContext);
 
     const handleHoursChange = (event) => {
         const value = event.target.value;
-        if (value === '' || (parseInt(value) >= 0 && parseInt(value) <= 23)) {
+        if (value === '' || (parseInt(value) >= 0 && parseInt(value) <= 100)) {
             setHours(value);
             onHourChange(value);
         }
@@ -29,8 +31,10 @@ const TimeInput = ({ onHourChange, onMinuteChange }) => {
                 value={hours}
                 onChange={handleHoursChange}
                 min="0"
-                max="23"
-                placeholder="HH"
+                max="100"
+                placeholder="00"
+                style={{ borderColor: theme.gray7, color: theme.gray12 }}
+
             />
             <span>:</span>
             <input
@@ -40,7 +44,8 @@ const TimeInput = ({ onHourChange, onMinuteChange }) => {
                 onChange={handleMinutesChange}
                 min="0"
                 max="59"
-                placeholder="MM"
+                placeholder="00"
+                style={{ borderColor: theme.gray7, color: theme.gray12 }}
             />
         </div>
     );

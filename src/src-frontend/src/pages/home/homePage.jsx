@@ -64,15 +64,16 @@ const HomePage = () => {
                                     <div className='icon-btn' onClick={handleLogoutClick}>{Logout}</div>
                                 </>}
                         />
-                        <div className="main-content">
+                        <div>
                             <ActivityPostComponent />
                             {isAddModalOpen && <AddActivityForm />}
                             {isSearchModalOpen && <SearchModal />}
-
+                            <FooterBarComponent />
                         </div>
                     </>
                 }
-                footerContent={<FooterBarComponent />}
+                footerContent={<></>}
+
             />
         );
     }
@@ -81,15 +82,22 @@ const HomePage = () => {
         <Skeleton
             mainContent={
                 <>
-                    <SidebarComponent />
-                    <div className="main-content">
-                        <ActivityPostComponent />
-                        {isAddModalOpen && <AddActivityForm />}
-                        {isSearchModalOpen && <SearchModal />}
+                    <div className='left-column'>
+                        <SidebarComponent />
+                    </div>
+
+                    <div className="right-column">
+                        <div className='home-container'>
+                            <ActivityPostComponent />
+                            {isAddModalOpen && <AddActivityForm />}
+                            {isSearchModalOpen && <SearchModal />}
+                        </div>
+                        <FooterComponent />
                     </div>
                 </>
             }
-            footerContent={<FooterComponent />}
+            footerContent={<></>}
+
         />
     );
 };

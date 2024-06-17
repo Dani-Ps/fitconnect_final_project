@@ -8,7 +8,7 @@ const ProfileNav = () => {
 
     return (
         <div className="profile-nav" style={{ background: theme.grayA2, borderColor: theme.grayA3 }}>
-            {icon}<span style={{ color: theme.gray12 }}>Post</span>
+            {icon}
         </div>
     );
 

@@ -20,7 +20,6 @@ import { LogoiconClear } from '../../assest/icon/logo-clear';
 import { LogoutClear } from '../../assest/icon/sidebarIcons-clear.jsx';
 import { LogoutDark } from '../../assest/icon/sidebarIcons-dark.jsx';
 
-import './style.scss';
 
 const ProfilePage = () => {
     // CONTEXTS
@@ -72,18 +71,20 @@ const ProfilePage = () => {
                                     <div className='icon-btn' onClick={handleLogoutClick}>{Logout}</div>
                                 </>}
                         />
-                        <div className="main-content">
-                            <div className='profile-main-container'>
+                        <div className="right-column">
+                            <div className='profile-page'>
                                 <ProfileHeader user={user} />
                                 <ProfileNav />
-                                <ActivityGrid userId={user.id} token={userData.token} />
+                                <ActivityGrid userId={user?.id} token={userData?.token} />
                                 {isAddModalOpen && <AddActivityForm />}
                                 {isSearchModalOpen && <SearchModal />}
                             </div>
                         </div>
+                        <FooterBarComponent />
                     </>
                 }
-                footerContent={<FooterBarComponent />}
+                footerContent={<></>}
+
             />
         );
     }
@@ -92,19 +93,24 @@ const ProfilePage = () => {
         <Skeleton
             mainContent={
                 <>
-                    <SidebarComponent />
-                    <div className="main-content">
-                        <div className='profile-main-container'>
+                    <div className='left-column'>
+                        <SidebarComponent />
+                    </div>
+                    <div className="right-column profile-page">
+                        <div>
                             <ProfileHeader user={user} />
                             <ProfileNav />
-                            <ActivityGrid userId={user.id} token={userData.token} />
+                            <ActivityGrid userId={user?.id} token={userData?.token} />
                             {isAddModalOpen && <AddActivityForm />}
                             {isSearchModalOpen && <SearchModal />}
+                        </div>
+                        <div>
+                            <FooterComponent />
                         </div>
                     </div>
                 </>
             }
-            footerContent={<FooterComponent />}
+            footerContent={<></>}
         />
     );
 };

@@ -4,8 +4,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    backdrop-filter: blur(5px);
-    z-index: 1000;
+    backdrop-filter: brightness(0.5) blur(5px);
 
     .add-activity-card {
         width: 15vw;
@@ -19,10 +18,12 @@
         position: relative;
 
         .card-header-container {
-            width: 100%;
+            width: 80%;
             display: flex;
             padding-top: 20px;
             padding-bottom: 10px;
+            margin-left: 50px;
+
 
             .title-container {
                 width: 90%;

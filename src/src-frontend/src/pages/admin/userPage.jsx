@@ -63,7 +63,7 @@ const UsersPage = () => {
                                     <div className='icon-btn' onClick={handleLogoutClick}>{Logout}</div>
                                 </>}
                         />
-                        <div className="main-content">
+                        <div className="dashboard-container">
                             <div className='title' >
                                 <h2 style={{ color: theme.gray12 }}>User Managment</h2>
                             </div>
@@ -84,16 +84,17 @@ const UsersPage = () => {
         <Skeleton
             mainContent={
                 <>
-                    <SidebarComponent />
-                    <div className="main-content">
+                    <div className='left-column'>
+                        <SidebarComponent />
+                    </div>
+                    <div className='right-column table-container'>
                         <div className='title' >
                             <h1 style={{ color: theme.gray12 }}>User Managment</h1>
                         </div>
-                        <div className='table-container'>
+                        <div className='table-content'>
                             <UserTable />
                         </div>
                         {isSearchModalOpen && <SearchModal />}
-
                     </div>
                 </>
             }

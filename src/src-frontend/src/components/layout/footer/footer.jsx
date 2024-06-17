@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
-import './style.scss';
 import { Link } from 'react-router-dom';
+
 import { ThemeContext } from '../../../contexts/ThemeProvider';
 import { useScreenContext } from '../../../contexts/ScreenProvider';
 
+import './style.scss';
 const FooterComponent = () => {
     const { theme } = useContext(ThemeContext);
     const { screenWidth } = useScreenContext();

@@ -8,7 +8,6 @@ import { createActivity } from '../../../service/activityService';
 import { convertImageToBase64 } from '../../../service/imageService';
 
 import TimeInput from './components/timeInput/timeInput';
-import { CloseIconClear, CloseIconDark } from './components/icons/closeIcon';
 import { AddImageIconClear, AddImageIconDark } from './components/icons/addImageIcon';
 
 import activityTypes from '../../../model/ActivityTypes';
@@ -31,6 +30,7 @@ const AddActivityForm = () => {
     const [showSuggestions, setShowSuggestions] = useState(false);
     const inputRef = useRef(null);
     const suggestionsRef = useRef(null);
+    const [imagePreview, setImagePreview] = useState(null);
 
     useEffect(() => {
         if (!userData) {
@@ -58,22 +58,30 @@ const AddActivityForm = () => {
         };
     }, [userData]);
 
+    useEffect(() => {
+        return () => {
+            if (imagePreview) {
+                URL.revokeObjectURL(imagePreview);
+            }
+        };
+    }, [imagePreview]);
+
     if (!userData) {
         return <div>Loading...</div>;
     }
 
-    const closeIcon = isDark ? <CloseIconDark /> : <CloseIconClear />;
     const addImageIcon = isDark ? <AddImageIconDark /> : <AddImageIconClear />;
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file && file.type.match('image.*')) {
             setImage(file);
+            const previewUrl = URL.createObjectURL(file);
+            setImagePreview(previewUrl);
         } else {
             console.error('No valid image file selected');
         }
     };
-
     const handleActivityChange = (e) => {
         const input = e.target.value;
         setActivityType(input);
@@ -134,10 +142,10 @@ const AddActivityForm = () => {
 
     return (
         <div className='modal-container'>
-            <div className='add-activity-card' style={{ borderColor: theme.gray7, background: theme.gray3, color: theme.teal12 }}>
+            <div className='add-activity-card' style={{ borderColor: theme.gray7, background: theme.backgroundGradient, color: theme.teal12 }}>
                 <div className='card-header-container'>
                     <div className='title-container'><h2>Add Publication</h2></div>
-                    <button onClick={handleCloseAddModal} style={{ background: theme.gray3 }}>{closeIcon}</button>
+                    <button onClick={handleCloseAddModal} style={{ fontSize: '24px', color: theme.gray12 }}>&times;</button>
                 </div>
                 <form onSubmit={handleSubmit} className='publication-form'>
                     <div className="input-container" ref={inputRef}>
@@ -161,6 +169,7 @@ const AddActivityForm = () => {
                             label="Event Time"
                             onHourChange={(hour) => setDuration({ ...duration, hours: hour })}
                             onMinuteChange={(minute) => setDuration({ ...duration, minutes: minute })}
+                            style={{ borderColor: theme.gray7, color: theme.gray12 }}
                         />
                     </div>
                     <div className="input-container">
@@ -170,6 +179,11 @@ const AddActivityForm = () => {
                         <input type="file" accept="image/*" style={{ display: 'none' }} onChange={handleImageChange} ref={inputRef} />
                         <button type="button" onClick={handleImageClick} className="image-upload-btn" style={{ background: theme.grayA4, color: theme.teal12 }}>Upload an Image {addImageIcon}</button>
                     </div>
+                    {imagePreview && (
+                        <div className="image-preview-container">
+                            <img src={imagePreview} alt="Image preview" style={{ maxWidth: '100%', maxHeight: '200px' }} />
+                        </div>
+                    )}
                     <div className='submit-button-container'>
                         <button type="submit" style={{ backgroundColor: theme.teal12, color: theme.gray1 }}>Publish</button>
                     </div>

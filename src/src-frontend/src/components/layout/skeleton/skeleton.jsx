@@ -7,7 +7,6 @@ const Skeleton = ({ mainContent, footerContent, currentPath }) => {
     const getBackgroundColor = (path) => {
         switch (path) {
             case '/login':
-                return theme.backgroundGradient;
             case '/register':
                 return theme.backgroundGradient;
             default:
@@ -15,8 +14,18 @@ const Skeleton = ({ mainContent, footerContent, currentPath }) => {
         }
     };
 
+    const getContainerClass = (path) => {
+        switch (path) {
+            case '/login':
+            case '/register':
+                return 'special-container';
+            default:
+                return 'body-container';
+        }
+    };
+
     return (
-        <div className="body-container" style={{ background: getBackgroundColor(currentPath) }}>
+        <div className={getContainerClass(currentPath)} style={{ background: getBackgroundColor(currentPath) }}>
             <main>{mainContent}</main>
             <footer>{footerContent}</footer>
         </div>

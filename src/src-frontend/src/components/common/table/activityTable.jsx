@@ -22,14 +22,14 @@ const ActivityTable = () => {
 
     const { userData } = useAuthContext();
     const token = userData?.token;
-    const ActivitiesPerPage = 10;
+    const activitiesPerPage = 10;
 
     const fetchActivities = async () => {
         try {
             const response = await fetchAllActivities(token);
             if (Array.isArray(response)) {
                 setActivities(response);
-                setTotalPages(Math.ceil(response.length / ActivitiesPerPage));
+                setTotalPages(Math.ceil(response.length / activitiesPerPage));
             } else {
                 setActivities([]);
                 setTotalPages(0);
@@ -45,18 +45,36 @@ const ActivityTable = () => {
     useEffect(() => {
         fetchActivities();
     }, []);
+
     useEffect(() => {
-        const startIndex = (currentPage - 1) * ActivitiesPerPage;
-        const endIndex = startIndex + ActivitiesPerPage;
+        const startIndex = (currentPage - 1) * activitiesPerPage;
+        const endIndex = startIndex + activitiesPerPage;
         setFilteredActivities(activities.slice(startIndex, endIndex));
     }, [activities, currentPage]);
 
     const goToPage = (pageNumber) => {
         setCurrentPage(pageNumber);
-        const startIndex = (pageNumber - 1) * ActivitiesPerPage;
-        const endIndex = startIndex + ActivitiesPerPage;
+        const startIndex = (pageNumber - 1) * activitiesPerPage;
+        const endIndex = startIndex + activitiesPerPage;
         setFilteredActivities(activities.slice(startIndex, endIndex));
     };
+
+    const nextPage = () => {
+        const startIndex = currentPage * activitiesPerPage;
+        const endIndex = startIndex + activitiesPerPage;
+        setCurrentPage(currentPage + 1);
+        setFilteredActivities(activities.slice(startIndex, endIndex));
+    };
+
+    const prevPage = () => {
+        if (currentPage > 1) {
+            const startIndex = (currentPage - 2) * activitiesPerPage;
+            const endIndex = startIndex + activitiesPerPage;
+            setCurrentPage(currentPage - 1);
+            setFilteredActivities(activities.slice(startIndex, endIndex));
+        }
+    };
+
 
     const handleDelete = async () => {
         try {
@@ -82,15 +100,50 @@ const ActivityTable = () => {
     };
 
     const showDetails = (activity) => {
-        // Agrega la lógica para mostrar detalles de la actividad
     };
+    const renderPagination = () => {
+        const maxButtons = 10;
+        const startPage = Math.max(currentPage - Math.floor(maxButtons / 2), 1);
+        const endPage = Math.min(startPage + maxButtons - 1, totalPages);
 
+        const pages = [];
+        for (let i = startPage; i <= endPage; i++) {
+            pages.push(i);
+        }
+
+        return (
+            <div className="pagination">
+                {startPage > 1 && (
+                    <>
+                        <button onClick={() => goToPage(1)} style={{ color: theme.teal12 }}>1</button>
+                        {startPage > 2 && <span style={{ color: theme.teal12 }} className='page-dots'>...</span>}
+                    </>
+                )}
+                {pages.map(page => (
+                    <button
+                        key={page}
+                        onClick={() => goToPage(page)}
+                        className={currentPage === page ? 'active' : ''}
+                        style={{ color: theme.teal12 }}
+                    >
+                        {page}
+                    </button>
+                ))}
+                {endPage < totalPages && (
+                    <>
+                        {endPage < totalPages - 1 && <span style={{ color: theme.teal12 }} className='page-dots'>...</span>}
+                        <button onClick={() => goToPage(totalPages)} style={{ color: theme.teal12 }}>{totalPages}</button>
+                    </>
+                )}
+            </div>
+        );
+    };
     return (
-        <div>
-            <table style={{ background: theme.grayA4 }}>
-                <thead>
+        <>
+            <table>
+                <thead style={{ background: theme.tealA3, color: theme.teal12 }}>
                     <tr>
-                        <th style={{ background: theme.tealA12 }}>Title</th>
+                        <th>Title</th>
                         <th>Type</th>
                         <th>Duration</th>
                         <th>Place</th>
@@ -100,7 +153,7 @@ const ActivityTable = () => {
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody style={{ background: theme.grayA2, color: theme.gray12 }}>
                     {filteredActivities && filteredActivities.map((activity) => (
                         <tr key={activity.id}>
                             <td>{activity.title}</td>
@@ -111,28 +164,19 @@ const ActivityTable = () => {
                             <td>{activity.creator.name}</td>
                             <td>{activity.participants.map(participant => participant.name).join(', ')}</td>
                             <td>
-                                <button onClick={() => showDetails(activity)}>Details</button>
-                                <button onClick={() => handleEdit(activity)}>Edit</button>
+                                <button onClick={() => showDetails(activity)} className='table-button' style={{ borderColor: theme.teal4, backgroundColor: theme.teal4, color: theme.teal12 }}>👁️</button>
+                                <button onClick={() => handleEdit(activity)} className='table-button' style={{ borderColor: theme.teal4, backgroundColor: theme.teal4, color: theme.teal12 }}>Edit</button>
                                 <button onClick={() => {
                                     setActivityToDelete(activity);
                                     setShowDeleteModal(true);
-                                }}>Delete</button>
+                                }} className='table-button' style={{ borderColor: theme.teal4, backgroundColor: theme.teal4, color: theme.teal12 }}>Delete</button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-            <div className="pagination">
-                {Array.from({ length: totalPages }, (_, index) => (
-                    <button
-                        key={index + 1}
-                        onClick={() => goToPage(index + 1)}
-                        className={currentPage === index + 1 ? 'active' : ''}
-                    >
-                        {index + 1}
-                    </button>
-                ))}
-            </div>
+            {renderPagination()}
+
 
             {showDeleteModal && (
                 <DeleteActivityModal
@@ -153,7 +197,7 @@ const ActivityTable = () => {
                     token={token}
                 />
             )}
-        </div>
+        </>
     );
 };
 

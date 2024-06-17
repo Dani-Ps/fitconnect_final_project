@@ -1,4 +1,4 @@
-.modal {
+.search-modal {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,8 +10,7 @@
     background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(5px);
 
-    .modal-content {
-        background: #fff;
+    .search-modal-content {
         padding: 20px;
         border-radius: 8px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -19,6 +18,7 @@
         width: 100%;
         text-align: center;
         position: relative;
+        border: 1px solid;
 
         .close {
             position: absolute;
@@ -31,16 +31,21 @@
         h2 {
             margin-bottom: 20px;
             font-size: 1.5em;
-            color: #333;
         }
 
-        input {
+        .search-input {
             width: 100%;
             padding: 10px;
             margin-bottom: 20px;
-            border: 1px solid #ccc;
             border-radius: 4px;
             font-size: 16px;
+            border: 1px solid;
+            border-color: var(--grayA6); // Usando variable de color del tema
+
+            &:focus {
+                border-color: var(--teal11); // Cambia esto al color deseado al hacer clic
+                outline: none;
+            }
         }
 
         .user-list {
@@ -48,18 +53,13 @@
             padding: 0;
             max-height: 200px;
             overflow-y: auto;
-            border: 1px solid #ccc;
             border-radius: 4px;
-
-            /* Estilos para la barra de scroll */
-
 
             .user-list-item {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
                 padding: 10px;
-                border-bottom: 1px solid #eee;
 
                 &:last-child {
                     border-bottom: none;
@@ -67,7 +67,6 @@
 
                 span {
                     font-size: 16px;
-                    color: #333;
                 }
 
                 .buttons {
@@ -78,22 +77,19 @@
                         border-radius: 4px;
                         cursor: pointer;
                         font-size: 14px;
-
-                        &:first-of-type {
-                            background-color: #28a745;
-                            color: white;
-                        }
-
-                        &:last-of-type {
-                            background-color: #007bff;
-                            color: white;
-                        }
                     }
+                }
+
+                &:hover {
+                    border-radius: 10px;
+                    background-color: var(--gray-a2);
+
                 }
             }
         }
     }
 }
+
 
 ::-webkit-scrollbar {
     width: 6px;
