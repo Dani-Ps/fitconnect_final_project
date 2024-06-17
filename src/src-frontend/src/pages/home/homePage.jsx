@@ -20,7 +20,7 @@ import { LogoutDark } from '../../assest/icon/sidebarIcons-dark.jsx';
 
 const HomePage = () => {
     // CONTEXTS
-    const { isDark } = useContext(ThemeContext);
+    const { isDark, theme } = useContext(ThemeContext);
     const { screenWidth } = useScreenContext();
     const { logout } = useAuthContext();
     const { isModalOpen } = useModalContext();
@@ -87,11 +87,9 @@ const HomePage = () => {
                     </div>
 
                     <div className="right-column">
-                        <div className='home-container'>
-                            <ActivityPostComponent />
-                            {isAddModalOpen && <AddActivityForm />}
-                            {isSearchModalOpen && <SearchModal />}
-                        </div>
+                        <ActivityPostComponent />
+                        {isAddModalOpen && <AddActivityForm />}
+                        {isSearchModalOpen && <SearchModal />}
                         <FooterComponent />
                     </div>
                 </>
