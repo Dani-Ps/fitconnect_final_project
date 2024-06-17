@@ -46,8 +46,6 @@ const ActivityGrid = ({ userId, token }) => {
         closeModal('activityModal');
     };
 
-    const isActivityModalOpen = isModalOpen('activityModal');
-
     const handleNextPost = () => {
         const nextIndex = selectedActivityIndex + 1;
         if (nextIndex < activities.length) {

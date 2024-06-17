@@ -22,7 +22,7 @@ const UsersPage = () => {
     // CONTEXTS
     const { isDark, theme } = useContext(ThemeContext);
     const { screenWidth } = useScreenContext();
-    const { logout, userData, update } = useAuthContext();
+    const { logout } = useAuthContext();
     const { isModalOpen } = useModalContext();
     const isSearchModalOpen = isModalOpen('searchModal');
 

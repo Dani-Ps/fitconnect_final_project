@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Navigate } from 'react-router-dom';
 
 import { useAuthContext } from '../../../contexts/AuthProvider';
 import { ThemeContext } from '../../../contexts/ThemeProvider';
@@ -15,7 +14,7 @@ const Roles = {
 };
 
 const UserTable = () => {
-    const { isDark, theme } = useContext(ThemeContext);
+    const { theme } = useContext(ThemeContext);
     const [users, setUsers] = useState([]);
     const [filteredUsers, setFilteredUsers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);

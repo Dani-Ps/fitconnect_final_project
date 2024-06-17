@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { ThemeContext } from '../../contexts/ThemeProvider.js';
 import { useScreenContext } from '../../contexts/ScreenProvider.js';
 import { useAuthContext } from '../../contexts/AuthProvider.js';

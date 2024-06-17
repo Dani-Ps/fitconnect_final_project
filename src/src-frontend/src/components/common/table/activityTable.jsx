@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Navigate } from 'react-router-dom';
 
 import { useAuthContext } from '../../../contexts/AuthProvider';
 import { ThemeContext } from '../../../contexts/ThemeProvider';
@@ -10,7 +9,7 @@ import moment from 'moment/moment';
 import './style.scss';
 
 const ActivityTable = () => {
-    const { isDark, theme } = useContext(ThemeContext);
+    const { theme } = useContext(ThemeContext);
     const [activities, setActivities] = useState([]);
     const [filteredActivities, setFilteredActivities] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);

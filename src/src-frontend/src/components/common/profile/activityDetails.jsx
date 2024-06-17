@@ -1,10 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 // CONTEXTS
 import { ThemeContext } from '../../../contexts/ThemeProvider';
-import { useAuthContext } from '../../../contexts/AuthProvider';
-// SERVICES
-import { getActivitiesByUserId } from '../../../service/activityService';
 // COMPONENTS
 import ProfilePictureComponent from '../../layout/navbar/components/profilePicture/profilePicture';
 import PublicationMenuButton from '../activity/components/dotsIcon/DotsComponent';
@@ -12,7 +9,7 @@ import PublicationMenuButton from '../activity/components/dotsIcon/DotsComponent
 import './style.scss';
 
 const ActivityDetails = ({ activity, userId }) => {
-    const { theme, isDark } = useContext(ThemeContext);
+    const { theme } = useContext(ThemeContext);
 
     const base64ToUrl = (base64) => {
         if (base64.startsWith('data:image/jpeg;base64,')) {

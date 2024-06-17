@@ -25,7 +25,7 @@ const AddActivityForm = () => {
     const [place, setPlace] = useState('');
     const [duration, setDuration] = useState({ hours: '', minutes: '' });
     const [image, setImage] = useState(null);
-    const [friends, setFriends] = useState('');
+    const [friends] = useState('');
     const [activitySuggestions, setActivitySuggestions] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
     const inputRef = useRef(null);
