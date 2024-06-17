@@ -113,7 +113,7 @@ const SidebarComponent = ({ }) => {
     const handleLogoutClick = async () => {
         try {
             await logout();
-            window.location.href = '/login';
+            window.location.href = '/';
         } catch (error) {
             console.error('Error during logout:', error);
         }

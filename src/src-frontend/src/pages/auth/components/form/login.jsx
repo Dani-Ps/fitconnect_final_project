@@ -114,7 +114,7 @@ const LoginForm = () => {
                     if (result.userDTO.roles.includes('ROLE_ADMIN')) {
                         return (window.location.href = "/dashboad");
                     } else {
-                        return (window.location.href = "/home");
+                        return (window.location.href = "/");
                     }
                 }
             } catch (error) {

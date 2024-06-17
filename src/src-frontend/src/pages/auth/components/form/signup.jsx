@@ -174,7 +174,7 @@ const SignupForm = () => {
                     window.sessionStorage.setItem("Role", result.userDTO.roles);
                     window.sessionStorage.setItem("isAuht", true);
 
-                    window.location.href = "/home";
+                    window.location.href = "/";
 
                 }
             } catch (error) {
